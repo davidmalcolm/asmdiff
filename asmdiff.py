@@ -12,14 +12,39 @@ class Instruction:
         self.disasm = disasm
 
     def __repr__(self):
-        return ('Instruction(%r, %r, %r)'
+        return ('Instruction(%s, %r, %r)'
                 % (self.offset, self.bytes_, self.disasm))
+
+    def __eq__(self, other):
+        if self.offset != other.offset:
+            return False
+        if self.bytes_ != other.bytes_:
+            return False
+        if self.disasm != other.disasm:
+            return False
+        return True
 
 class Function:
     def __init__(self, offset, name):
         self.offset = HexInt(offset)
         self.name = name
         self.instrs = []
+        self.padding = []
+
+    def finish(self):
+        """
+        Finish parsing this function.
+        """
+        # Locate trailing padding instructions
+        start_of_padding = len(self.instrs)
+        for instr in self.instrs[::-1]:
+            if instr.disasm == 'nop':
+                start_of_padding -= 1
+            break
+
+        # Move padding instructions from self.instr to self.padding:
+        self.padding = self.instrs[start_of_padding:]
+        self.instrs = self.instrs[:start_of_padding]
 
 class Section:
     def __init__(self, name):
@@ -29,7 +54,7 @@ hexgrp = r'([0-9a-f]+)'
 opt_ws = '\s*'
 
 def from_hex(str_):
-    return int(str_, 16)
+    return HexInt(str_, 16)
 
 class HexInt(int):
     """
@@ -107,6 +132,8 @@ class ObjDump(AsmFile):
     def _on_function(self, offset, name):
         if self.debug:
             print('FUNCTION:0x%x %s' % (offset, name))
+        if self._cur_function:
+            self._cur_function.finish()
         self._cur_function = Function(offset, name)
         self.functions[name] = self._cur_function
 

@@ -1,6 +1,6 @@
 import unittest
 
-from asmdiff import read_objdump, FunctionPeers, fn_equal
+from asmdiff import read_objdump, FunctionPeers, fn_equal, Instruction
 
 class TestObjdumpParsing(unittest.TestCase):
     def parse_objdump(self):
@@ -50,18 +50,27 @@ class TestObjdumpParsing(unittest.TestCase):
         self.assertEqual(i3.disasm, 'jle    THIS_FN+0x21')
 
 class TestDiff(unittest.TestCase):
+    old = read_objdump('examples/objdump/anon-namespace/tracer.old')
+    new = read_objdump('examples/objdump/anon-namespace/tracer.new')
+
     def test_adding_anon_namespace(self):
-        old = read_objdump('examples/objdump/anon-namespace/tracer.old')
-        new = read_objdump('examples/objdump/anon-namespace/tracer.new')
-        peers = FunctionPeers(old.functions.keys(), new.functions.keys())
+        peers = FunctionPeers(self.old.functions.keys(), self.new.functions.keys())
         self.assertEqual(peers.gone, [])
         self.assertEqual(peers.appeared, [])
         self.assertEqual(
             peers.old_to_new['tracer_state::find_trace(basic_block_def*, basic_block_def**)'],
             '(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)')
 
-        oldfn = old.functions['gate_tracer()']
-        newfn = new.functions['gate_tracer()']
+        oldfn = self.old.functions['gate_tracer()']
+        newfn = self.new.functions['gate_tracer()']
+        self.assertTrue(fn_equal(oldfn, newfn))
+
+    def test_trailing_nops(self):
+        FNNAME = 'loops_state_set(unsigned int)'
+        oldfn = self.old.functions[FNNAME]
+        newfn = self.new.functions[FNNAME]
+        self.assertEqual(oldfn.padding, [])
+        self.assertEqual(newfn.padding, [Instruction(0x353, [144], 'nop')])
         self.assertTrue(fn_equal(oldfn, newfn))
 
 unittest.main()

@@ -1,12 +1,12 @@
 import unittest
 
-from asmdiff import read_asm
+from asmdiff import read_objdump
 
 class TestObjdumpParsing(unittest.TestCase):
     def parse_objdump(self):
         # This is the output from "objdump -Cd"
         # i.e. it's already gone through demangling
-        return read_asm('examples/objdump/isra/tracer.old')
+        return read_objdump('examples/objdump/isra/tracer.old')
 
     def test_parsing(self):
         asm = self.parse_objdump()

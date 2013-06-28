@@ -39,18 +39,22 @@ class HexInt(int):
         return '0x%x' % self
 
 class AsmFile:
-    """
-    Parser for output from objdump -d
-    """
-    def __init__(self, f, debug=0):
-        self.debug = debug
-
-        self.objpath = None
-        self.fileformat = None
+    def __init__(self):
         self._cur_section = None
         self._cur_function = None
         self.sections = OrderedDict()
         self.functions = OrderedDict()
+
+class ObjDump(AsmFile):
+    """
+    Parser for output from objdump -d
+    """
+    def __init__(self, f, debug=0):
+        AsmFile.__init__(self)
+        self.debug = debug
+
+        self.objpath = None
+        self.fileformat = None
 
         for line in f:
             if debug:
@@ -216,11 +220,11 @@ class Output:
                 self.output._indent -= 1
         return IndentCM(self)
 
-def read_asm(path):
+def read_objdump(path):
     with open(path) as f:
-        return AsmFile(f)
+        return ObjDump(f)
 
 if __name__ == '__main__':
-    old = read_asm(sys.argv[1])
-    new = read_asm(sys.argv[2])
+    old = read_objdump(sys.argv[1])
+    new = read_objdump(sys.argv[2])
     asm_diff(old, new, Output())

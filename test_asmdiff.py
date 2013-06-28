@@ -1,6 +1,6 @@
 import unittest
 
-from asmdiff import read_objdump
+from asmdiff import read_objdump, FunctionPeers, fn_equal
 
 class TestObjdumpParsing(unittest.TestCase):
     def parse_objdump(self):
@@ -48,5 +48,20 @@ class TestObjdumpParsing(unittest.TestCase):
         self.assertEqual(i3.offset, 0xa)
         self.assertEqual(i3.bytes_, [0x7e, 0x15])
         self.assertEqual(i3.disasm, 'jle    THIS_FN+0x21')
+
+class TestDiff(unittest.TestCase):
+    def test_adding_anon_namespace(self):
+        old = read_objdump('examples/objdump/anon-namespace/tracer.old')
+        new = read_objdump('examples/objdump/anon-namespace/tracer.new')
+        peers = FunctionPeers(old.functions.keys(), new.functions.keys())
+        self.assertEqual(peers.gone, [])
+        self.assertEqual(peers.appeared, [])
+        self.assertEqual(
+            peers.old_to_new['tracer_state::find_trace(basic_block_def*, basic_block_def**)'],
+            '(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)')
+
+        oldfn = old.functions['gate_tracer()']
+        newfn = new.functions['gate_tracer()']
+        self.assertTrue(fn_equal(oldfn, newfn))
 
 unittest.main()

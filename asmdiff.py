@@ -1,3 +1,6 @@
+"""
+Script for comparing output of "objdump -d"
+"""
 from collections import OrderedDict
 import re
 import sys
@@ -137,24 +140,56 @@ def fn_diff(old, new, out):
                 out.writeln('%04s: Old: %s' % (oldinstr.offset, oldinstr.disasm))
                 out.writeln('    : New: %s' % (newinstr.disasm, ))
 
+class Peers:
+    """
+    Match up peers between two sets of items, old and new
+    """
+    def __init__(self, old, new):
+        self.old = old
+        self.new = new
+        self.old_to_new = {}
+        self.new_to_old = {}
+        self.gone = []
+        self.appeared = []
+        for olditem in old:
+            newitem = self._lookup(olditem)
+            if newitem:
+                self.old_to_new[olditem] = newitem
+                self.new_to_old[newitem] = olditem
+            else:
+                self.gone.append(olditem)
+        for newitem in new:
+            if newitem not in self.new_to_old:
+                self.appeared.append(newitem)
+
+    def _lookup(self, olditem):
+        raise NotImplementedError
+
+class FunctionPeers(Peers):
+    """
+    Match up peer function names
+    """
+    def _lookup(self, olditem):
+        if olditem in self.new:
+            return olditem
+        # Find things that were moved to anonymous namespaces:
+        add_anon = '(anonymous namespace)::' + olditem
+        if add_anon in self.new:
+            return add_anon
+
 def asm_diff(old, new, out):
     out.writeln('Old: %s' % old.objpath)
     out.writeln('New: %s' % new.objpath)
+    peers = FunctionPeers(old.functions.keys(), new.functions.keys())
     with out.indent():
-        seen_newnames = set()
-        for oldname, oldfn in old.functions.iteritems():
-            newname = None
-            if oldname in new.functions:
-                newname = oldname
-            if not newname:
-                out.writeln('Function removed: %s' % oldname)
-                continue
+        for gone in peers.gone:
+            out.writeln('Function removed: %s' % gone)
+        for appeared in peers.appeared:
+            out.writeln('Function added: %s' % appeared)
+        for oldname, newname in peers.old_to_new.iteritems():
+            oldfn = old.functions[oldname]
             newfn = new.functions[newname]
-            seen_newnames.add(newname)
             fn_diff(oldfn, newfn, out)
-        for newname, newfn in new.functions.iteritems():
-            if newname not in seen_newnames:
-                out.writeln('Function added: %s' % newname)
 
 class Output:
     def __init__(self):

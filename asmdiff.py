@@ -215,6 +215,7 @@ def read_asm(path):
     with open(path) as f:
         return AsmFile(f)
 
-old = read_asm(sys.argv[1])
-new = read_asm(sys.argv[2])
-asm_diff(old, new, Output())
+if __name__ == '__main__':
+    old = read_asm(sys.argv[1])
+    new = read_asm(sys.argv[2])
+    asm_diff(old, new, Output())

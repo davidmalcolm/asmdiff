@@ -20,6 +20,7 @@ class TestObjdumpParsing(unittest.TestCase):
         fn = asm.functions['gate_tracer()']
         self.assertEqual(fn.name, 'gate_tracer()')
         self.assertEqual(len(fn.instrs), 13)
+        self.assertEqual(fn.offset, 0x0)
 
         """
         0000000000000000 <gate_tracer()>:

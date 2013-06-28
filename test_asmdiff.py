@@ -1,6 +1,6 @@
 import unittest
 
-from asmdiff import read_objdump, FunctionPeers, fn_equal, Instruction
+from asmdiff import read_objdump, FunctionPeers, fn_equal, Instruction, Demangler
 
 class TestObjdumpParsing(unittest.TestCase):
     def parse_objdump(self):
@@ -72,5 +72,13 @@ class TestDiff(unittest.TestCase):
         self.assertEqual(oldfn.padding, [])
         self.assertEqual(newfn.padding, [Instruction(0x353, [144], 'nop')])
         self.assertTrue(fn_equal(oldfn, newfn))
+
+class TestDemangling(unittest.TestCase):
+    def test_demangling(self):
+        d = Demangler()
+        self.assertEqual(d.demangle('_ZL12mark_bb_seenP15basic_block_def'),
+                         'mark_bb_seen(basic_block_def*)')
+        self.assertEqual(d.demangle('_ZN3vecIP8edge_def5va_gc8vl_embedEixEj'),
+                         'vec<edge_def*, va_gc, vl_embed>::operator[](unsigned int)')
 
 unittest.main()

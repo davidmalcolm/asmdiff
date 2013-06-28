@@ -2,8 +2,17 @@
 Script for comparing output of "objdump -d"
 """
 from collections import OrderedDict
+from subprocess import Popen, PIPE
 import re
 import sys
+
+class Demangler:
+    def __init__(self):
+        self.p = Popen(['c++filt'], stdin=PIPE, stdout=PIPE)
+
+    def demangle(self, name):
+        self.p.stdin.write('%s\n' % name)
+        return self.p.stdout.readline().rstrip()
 
 class Instruction:
     def __init__(self, offset, bytes_, disasm):

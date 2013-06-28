@@ -109,12 +109,14 @@ class AsmFile:
     def _on_instruction(self, offset, hexdump, disasm):
         if self.debug:
             print('INSTRUCTION:0x%x %r %r' % (offset, hexdump, disasm))
-        # Fixup jump offsets:
+        # Fixup jump offsets to refer to "THIS_FN" (to minimize changes due
+        # to function renaming)
         m = re.match(r'.*\s([0-9a-f]+ \<.+\+0x[0-9a-f]+\>)', disasm)
         if m:
-            m2 = re.match(r'[0-9a-f]+ \<.+\+(0x[0-9a-f]+)\>',
+            m2 = re.match(r'[0-9a-f]+ \<(.+)\+(0x[0-9a-f]+)\>',
                           m.group(1))
-            disasm = disasm[:m.start(1)] + 'FN+' + m2.group(1) + disasm[m.end(1):]
+            if m2.group(1) == self._cur_function.name:
+                disasm = disasm[:m.start(1)] + 'THIS_FN+' + m2.group(2) + disasm[m.end(1):]
         instr = Instruction(offset, hexdump, disasm)
         self._cur_function.instrs.append(instr)
 

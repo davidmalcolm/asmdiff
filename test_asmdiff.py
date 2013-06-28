@@ -43,4 +43,10 @@ class TestObjdumpParsing(unittest.TestCase):
         self.assertEqual(i1.bytes_, [0x31, 0xc0])
         self.assertEqual(i1.disasm, 'xor    %eax,%eax')
 
+        # Verify that offsets are rewritten relative to "THIS_FN"
+        i3 = fn.instrs[3]
+        self.assertEqual(i3.offset, 0xa)
+        self.assertEqual(i3.bytes_, [0x7e, 0x15])
+        self.assertEqual(i3.disasm, 'jle    THIS_FN+0x21')
+
 unittest.main()

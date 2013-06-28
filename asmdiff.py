@@ -32,6 +32,9 @@ def from_hex(str_):
     return int(str_, 16)
 
 class HexInt(int):
+    """
+    An int that prints itself in hexadecimal
+    """
     def __str__(self):
         return '0x%x' % self
 

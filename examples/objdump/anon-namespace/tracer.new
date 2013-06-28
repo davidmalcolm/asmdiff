@@ -1,0 +1,1472 @@
+
+tracer.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <ei_container(edge_iterator)>:
+       0:	55                   	push   %rbp
+       1:	48 89 e5             	mov    %rsp,%rbp
+       4:	48 83 ec 10          	sub    $0x10,%rsp
+       8:	89 fa                	mov    %edi,%edx
+       a:	48 89 f0             	mov    %rsi,%rax
+       d:	89 55 f0             	mov    %edx,-0x10(%rbp)
+      10:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+      14:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+      18:	48 85 c0             	test   %rax,%rax
+      1b:	75 14                	jne    31 <ei_container(edge_iterator)+0x31>
+      1d:	ba 00 00 00 00       	mov    $0x0,%edx
+      22:	be 44 02 00 00       	mov    $0x244,%esi
+      27:	bf 00 00 00 00       	mov    $0x0,%edi
+      2c:	e8 00 00 00 00       	callq  31 <ei_container(edge_iterator)+0x31>
+      31:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+      35:	48 8b 00             	mov    (%rax),%rax
+      38:	c9                   	leaveq 
+      39:	c3                   	retq   
+
+000000000000003a <ei_start_1(vec<edge_def*, va_gc, vl_embed>**)>:
+      3a:	55                   	push   %rbp
+      3b:	48 89 e5             	mov    %rsp,%rbp
+      3e:	48 89 7d d8          	mov    %rdi,-0x28(%rbp)
+      42:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%rbp)
+      49:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+      4d:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+      51:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+      55:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+      59:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+      5d:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+      61:	8b 45 f0             	mov    -0x10(%rbp),%eax
+      64:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
+      68:	5d                   	pop    %rbp
+      69:	c3                   	retq   
+
+000000000000006a <ei_end_p(edge_iterator)>:
+      6a:	55                   	push   %rbp
+      6b:	48 89 e5             	mov    %rsp,%rbp
+      6e:	53                   	push   %rbx
+      6f:	48 83 ec 18          	sub    $0x18,%rsp
+      73:	89 fa                	mov    %edi,%edx
+      75:	48 89 f0             	mov    %rsi,%rax
+      78:	89 55 e0             	mov    %edx,-0x20(%rbp)
+      7b:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+      7f:	8b 5d e0             	mov    -0x20(%rbp),%ebx
+      82:	8b 55 e0             	mov    -0x20(%rbp),%edx
+      85:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+      89:	89 d7                	mov    %edx,%edi
+      8b:	48 89 c6             	mov    %rax,%rsi
+      8e:	e8 6d ff ff ff       	callq  0 <ei_container(edge_iterator)>
+      93:	48 89 c7             	mov    %rax,%rdi
+      96:	e8 00 00 00 00       	callq  9b <ei_end_p(edge_iterator)+0x31>
+      9b:	39 c3                	cmp    %eax,%ebx
+      9d:	0f 94 c0             	sete   %al
+      a0:	48 83 c4 18          	add    $0x18,%rsp
+      a4:	5b                   	pop    %rbx
+      a5:	5d                   	pop    %rbp
+      a6:	c3                   	retq   
+
+00000000000000a7 <ei_next(edge_iterator*)>:
+      a7:	55                   	push   %rbp
+      a8:	48 89 e5             	mov    %rsp,%rbp
+      ab:	53                   	push   %rbx
+      ac:	48 83 ec 18          	sub    $0x18,%rsp
+      b0:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+      b4:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+      b8:	8b 18                	mov    (%rax),%ebx
+      ba:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+      be:	8b 10                	mov    (%rax),%edx
+      c0:	48 8b 40 08          	mov    0x8(%rax),%rax
+      c4:	89 d7                	mov    %edx,%edi
+      c6:	48 89 c6             	mov    %rax,%rsi
+      c9:	e8 32 ff ff ff       	callq  0 <ei_container(edge_iterator)>
+      ce:	48 89 c7             	mov    %rax,%rdi
+      d1:	e8 00 00 00 00       	callq  d6 <ei_next(edge_iterator*)+0x2f>
+      d6:	39 c3                	cmp    %eax,%ebx
+      d8:	72 14                	jb     ee <ei_next(edge_iterator*)+0x47>
+      da:	ba 00 00 00 00       	mov    $0x0,%edx
+      df:	be 77 02 00 00       	mov    $0x277,%esi
+      e4:	bf 00 00 00 00       	mov    $0x0,%edi
+      e9:	e8 00 00 00 00       	callq  ee <ei_next(edge_iterator*)+0x47>
+      ee:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+      f2:	8b 00                	mov    (%rax),%eax
+      f4:	8d 50 01             	lea    0x1(%rax),%edx
+      f7:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+      fb:	89 10                	mov    %edx,(%rax)
+      fd:	48 83 c4 18          	add    $0x18,%rsp
+     101:	5b                   	pop    %rbx
+     102:	5d                   	pop    %rbp
+     103:	c3                   	retq   
+
+0000000000000104 <ei_edge(edge_iterator)>:
+     104:	55                   	push   %rbp
+     105:	48 89 e5             	mov    %rsp,%rbp
+     108:	53                   	push   %rbx
+     109:	48 83 ec 18          	sub    $0x18,%rsp
+     10d:	89 fa                	mov    %edi,%edx
+     10f:	48 89 f0             	mov    %rsi,%rax
+     112:	89 55 e0             	mov    %edx,-0x20(%rbp)
+     115:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+     119:	8b 5d e0             	mov    -0x20(%rbp),%ebx
+     11c:	8b 55 e0             	mov    -0x20(%rbp),%edx
+     11f:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     123:	89 d7                	mov    %edx,%edi
+     125:	48 89 c6             	mov    %rax,%rsi
+     128:	e8 d3 fe ff ff       	callq  0 <ei_container(edge_iterator)>
+     12d:	89 de                	mov    %ebx,%esi
+     12f:	48 89 c7             	mov    %rax,%rdi
+     132:	e8 00 00 00 00       	callq  137 <ei_edge(edge_iterator)+0x33>
+     137:	48 8b 00             	mov    (%rax),%rax
+     13a:	48 83 c4 18          	add    $0x18,%rsp
+     13e:	5b                   	pop    %rbx
+     13f:	5d                   	pop    %rbp
+     140:	c3                   	retq   
+
+0000000000000141 <ei_cond(edge_iterator, edge_def**)>:
+     141:	55                   	push   %rbp
+     142:	48 89 e5             	mov    %rsp,%rbp
+     145:	48 83 ec 20          	sub    $0x20,%rsp
+     149:	89 f9                	mov    %edi,%ecx
+     14b:	48 89 f0             	mov    %rsi,%rax
+     14e:	48 89 55 e8          	mov    %rdx,-0x18(%rbp)
+     152:	89 4d f0             	mov    %ecx,-0x10(%rbp)
+     155:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+     159:	8b 55 f0             	mov    -0x10(%rbp),%edx
+     15c:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     160:	89 d7                	mov    %edx,%edi
+     162:	48 89 c6             	mov    %rax,%rsi
+     165:	e8 00 ff ff ff       	callq  6a <ei_end_p(edge_iterator)>
+     16a:	83 f0 01             	xor    $0x1,%eax
+     16d:	84 c0                	test   %al,%al
+     16f:	74 1f                	je     190 <ei_cond(edge_iterator, edge_def**)+0x4f>
+     171:	8b 55 f0             	mov    -0x10(%rbp),%edx
+     174:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     178:	89 d7                	mov    %edx,%edi
+     17a:	48 89 c6             	mov    %rax,%rsi
+     17d:	e8 82 ff ff ff       	callq  104 <ei_edge(edge_iterator)>
+     182:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
+     186:	48 89 02             	mov    %rax,(%rdx)
+     189:	b8 01 00 00 00       	mov    $0x1,%eax
+     18e:	eb 10                	jmp    1a0 <ei_cond(edge_iterator, edge_def**)+0x5f>
+     190:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     194:	48 c7 00 00 00 00 00 	movq   $0x0,(%rax)
+     19b:	b8 00 00 00 00       	mov    $0x0,%eax
+     1a0:	c9                   	leaveq 
+     1a1:	c3                   	retq   
+
+00000000000001a2 <bitmap_bit_p(simple_bitmap_def const*, int)>:
+     1a2:	55                   	push   %rbp
+     1a3:	48 89 e5             	mov    %rsp,%rbp
+     1a6:	53                   	push   %rbx
+     1a7:	48 89 7d e0          	mov    %rdi,-0x20(%rbp)
+     1ab:	89 75 dc             	mov    %esi,-0x24(%rbp)
+     1ae:	8b 45 dc             	mov    -0x24(%rbp),%eax
+     1b1:	c1 e8 06             	shr    $0x6,%eax
+     1b4:	89 c0                	mov    %eax,%eax
+     1b6:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+     1ba:	8b 45 dc             	mov    -0x24(%rbp),%eax
+     1bd:	83 e0 3f             	and    $0x3f,%eax
+     1c0:	89 45 ec             	mov    %eax,-0x14(%rbp)
+     1c3:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+     1c7:	48 8b 55 f0          	mov    -0x10(%rbp),%rdx
+     1cb:	48 83 c2 02          	add    $0x2,%rdx
+     1cf:	48 8b 14 d0          	mov    (%rax,%rdx,8),%rdx
+     1d3:	8b 45 ec             	mov    -0x14(%rbp),%eax
+     1d6:	48 89 d3             	mov    %rdx,%rbx
+     1d9:	89 c1                	mov    %eax,%ecx
+     1db:	48 d3 eb             	shr    %cl,%rbx
+     1de:	48 89 d8             	mov    %rbx,%rax
+     1e1:	83 e0 01             	and    $0x1,%eax
+     1e4:	5b                   	pop    %rbx
+     1e5:	5d                   	pop    %rbp
+     1e6:	c3                   	retq   
+
+00000000000001e7 <bitmap_set_bit(simple_bitmap_def*, int)>:
+     1e7:	55                   	push   %rbp
+     1e8:	48 89 e5             	mov    %rsp,%rbp
+     1eb:	53                   	push   %rbx
+     1ec:	48 83 ec 18          	sub    $0x18,%rsp
+     1f0:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+     1f4:	89 75 e4             	mov    %esi,-0x1c(%rbp)
+     1f7:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     1fb:	48 8b 00             	mov    (%rax),%rax
+     1fe:	48 85 c0             	test   %rax,%rax
+     201:	74 14                	je     217 <bitmap_set_bit(simple_bitmap_def*, int)+0x30>
+     203:	ba 00 00 00 00       	mov    $0x0,%edx
+     208:	be 71 00 00 00       	mov    $0x71,%esi
+     20d:	bf 00 00 00 00       	mov    $0x0,%edi
+     212:	e8 00 00 00 00       	callq  217 <bitmap_set_bit(simple_bitmap_def*, int)+0x30>
+     217:	8b 45 e4             	mov    -0x1c(%rbp),%eax
+     21a:	c1 e8 06             	shr    $0x6,%eax
+     21d:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
+     221:	89 c1                	mov    %eax,%ecx
+     223:	48 83 c1 02          	add    $0x2,%rcx
+     227:	48 8b 14 ca          	mov    (%rdx,%rcx,8),%rdx
+     22b:	8b 4d e4             	mov    -0x1c(%rbp),%ecx
+     22e:	83 e1 3f             	and    $0x3f,%ecx
+     231:	be 01 00 00 00       	mov    $0x1,%esi
+     236:	48 89 f3             	mov    %rsi,%rbx
+     239:	48 d3 e3             	shl    %cl,%rbx
+     23c:	48 89 d9             	mov    %rbx,%rcx
+     23f:	48 09 d1             	or     %rdx,%rcx
+     242:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
+     246:	89 c0                	mov    %eax,%eax
+     248:	48 83 c0 02          	add    $0x2,%rax
+     24c:	48 89 0c c2          	mov    %rcx,(%rdx,%rax,8)
+     250:	48 83 c4 18          	add    $0x18,%rsp
+     254:	5b                   	pop    %rbx
+     255:	5d                   	pop    %rbp
+     256:	c3                   	retq   
+
+0000000000000257 <gimple_seq_first(gimple_statement_d*)>:
+     257:	55                   	push   %rbp
+     258:	48 89 e5             	mov    %rsp,%rbp
+     25b:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+     25f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     263:	5d                   	pop    %rbp
+     264:	c3                   	retq   
+
+0000000000000265 <bb_seq_addr(basic_block_def*)>:
+     265:	55                   	push   %rbp
+     266:	48 89 e5             	mov    %rsp,%rbp
+     269:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+     26d:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     271:	8b 40 50             	mov    0x50(%rax),%eax
+     274:	25 00 02 00 00       	and    $0x200,%eax
+     279:	85 c0                	test   %eax,%eax
+     27b:	75 0a                	jne    287 <bb_seq_addr(basic_block_def*)+0x22>
+     27d:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     281:	48 83 c0 40          	add    $0x40,%rax
+     285:	eb 05                	jmp    28c <bb_seq_addr(basic_block_def*)+0x27>
+     287:	b8 00 00 00 00       	mov    $0x0,%eax
+     28c:	5d                   	pop    %rbp
+     28d:	c3                   	retq   
+
+000000000000028e <gimple_code(gimple_statement_d const*)>:
+     28e:	55                   	push   %rbp
+     28f:	48 89 e5             	mov    %rsp,%rbp
+     292:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+     296:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     29a:	0f b6 00             	movzbl (%rax),%eax
+     29d:	0f b6 c0             	movzbl %al,%eax
+     2a0:	5d                   	pop    %rbp
+     2a1:	c3                   	retq   
+
+00000000000002a2 <gsi_start_bb(basic_block_def*)>:
+     2a2:	55                   	push   %rbp
+     2a3:	48 89 e5             	mov    %rsp,%rbp
+     2a6:	48 83 ec 20          	sub    $0x20,%rsp
+     2aa:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+     2ae:	48 89 75 e0          	mov    %rsi,-0x20(%rbp)
+     2b2:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+     2b6:	48 89 c7             	mov    %rax,%rdi
+     2b9:	e8 a7 ff ff ff       	callq  265 <bb_seq_addr(basic_block_def*)>
+     2be:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+     2c2:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     2c6:	48 8b 00             	mov    (%rax),%rax
+     2c9:	48 89 c7             	mov    %rax,%rdi
+     2cc:	e8 86 ff ff ff       	callq  257 <gimple_seq_first(gimple_statement_d*)>
+     2d1:	48 8b 55 e8          	mov    -0x18(%rbp),%rdx
+     2d5:	48 89 02             	mov    %rax,(%rdx)
+     2d8:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     2dc:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
+     2e0:	48 89 50 08          	mov    %rdx,0x8(%rax)
+     2e4:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     2e8:	48 8b 55 e0          	mov    -0x20(%rbp),%rdx
+     2ec:	48 89 50 10          	mov    %rdx,0x10(%rax)
+     2f0:	90                   	nop
+     2f1:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     2f5:	c9                   	leaveq 
+     2f6:	c3                   	retq   
+
+00000000000002f7 <gsi_end_p(gimple_stmt_iterator_d)>:
+     2f7:	55                   	push   %rbp
+     2f8:	48 89 e5             	mov    %rsp,%rbp
+     2fb:	48 8b 45 10          	mov    0x10(%rbp),%rax
+     2ff:	48 85 c0             	test   %rax,%rax
+     302:	0f 94 c0             	sete   %al
+     305:	5d                   	pop    %rbp
+     306:	c3                   	retq   
+
+0000000000000307 <gsi_next(gimple_stmt_iterator_d*)>:
+     307:	55                   	push   %rbp
+     308:	48 89 e5             	mov    %rsp,%rbp
+     30b:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+     30f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     313:	48 8b 00             	mov    (%rax),%rax
+     316:	48 8b 50 18          	mov    0x18(%rax),%rdx
+     31a:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     31e:	48 89 10             	mov    %rdx,(%rax)
+     321:	5d                   	pop    %rbp
+     322:	c3                   	retq   
+
+0000000000000323 <gsi_stmt(gimple_stmt_iterator_d)>:
+     323:	55                   	push   %rbp
+     324:	48 89 e5             	mov    %rsp,%rbp
+     327:	48 8b 45 10          	mov    0x10(%rbp),%rax
+     32b:	5d                   	pop    %rbp
+     32c:	c3                   	retq   
+
+000000000000032d <loops_state_set(unsigned int)>:
+     32d:	55                   	push   %rbp
+     32e:	48 89 e5             	mov    %rsp,%rbp
+     331:	89 7d fc             	mov    %edi,-0x4(%rbp)
+     334:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 33b <loops_state_set(unsigned int)+0xe>
+     33b:	48 8b 40 20          	mov    0x20(%rax),%rax
+     33f:	48 8b 15 00 00 00 00 	mov    0x0(%rip),%rdx        # 346 <loops_state_set(unsigned int)+0x19>
+     346:	48 8b 52 20          	mov    0x20(%rdx),%rdx
+     34a:	8b 12                	mov    (%rdx),%edx
+     34c:	0b 55 fc             	or     -0x4(%rbp),%edx
+     34f:	89 10                	mov    %edx,(%rax)
+     351:	5d                   	pop    %rbp
+     352:	c3                   	retq   
+     353:	90                   	nop
+
+0000000000000354 <(anonymous namespace)::tracer_state::mark_bb_seen(basic_block_def*)>:
+     354:	55                   	push   %rbp
+     355:	48 89 e5             	mov    %rsp,%rbp
+     358:	48 83 ec 20          	sub    $0x20,%rsp
+     35c:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+     360:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 367 <(anonymous namespace)::tracer_state::mark_bb_seen(basic_block_def*)+0x13>
+     367:	8b 40 08             	mov    0x8(%rax),%eax
+     36a:	89 45 fc             	mov    %eax,-0x4(%rbp)
+     36d:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     371:	8b 40 54             	mov    0x54(%rax),%eax
+     374:	3b 45 fc             	cmp    -0x4(%rbp),%eax
+     377:	72 23                	jb     39c <(anonymous namespace)::tracer_state::mark_bb_seen(basic_block_def*)+0x48>
+     379:	8b 45 fc             	mov    -0x4(%rbp),%eax
+     37c:	8d 0c 00             	lea    (%rax,%rax,1),%ecx
+     37f:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 386 <(anonymous namespace)::tracer_state::mark_bb_seen(basic_block_def*)+0x32>
+     386:	ba 00 00 00 00       	mov    $0x0,%edx
+     38b:	89 ce                	mov    %ecx,%esi
+     38d:	48 89 c7             	mov    %rax,%rdi
+     390:	e8 00 00 00 00       	callq  395 <(anonymous namespace)::tracer_state::mark_bb_seen(basic_block_def*)+0x41>
+     395:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # 39c <(anonymous namespace)::tracer_state::mark_bb_seen(basic_block_def*)+0x48>
+     39c:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     3a0:	8b 50 54             	mov    0x54(%rax),%edx
+     3a3:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 3aa <(anonymous namespace)::tracer_state::mark_bb_seen(basic_block_def*)+0x56>
+     3aa:	89 d6                	mov    %edx,%esi
+     3ac:	48 89 c7             	mov    %rax,%rdi
+     3af:	e8 33 fe ff ff       	callq  1e7 <bitmap_set_bit(simple_bitmap_def*, int)>
+     3b4:	c9                   	leaveq 
+     3b5:	c3                   	retq   
+
+00000000000003b6 <(anonymous namespace)::tracer_state::bb_seen_p(basic_block_def*)>:
+     3b6:	55                   	push   %rbp
+     3b7:	48 89 e5             	mov    %rsp,%rbp
+     3ba:	48 83 ec 08          	sub    $0x8,%rsp
+     3be:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+     3c2:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     3c6:	8b 50 54             	mov    0x54(%rax),%edx
+     3c9:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 3d0 <(anonymous namespace)::tracer_state::bb_seen_p(basic_block_def*)+0x1a>
+     3d0:	89 d6                	mov    %edx,%esi
+     3d2:	48 89 c7             	mov    %rax,%rdi
+     3d5:	e8 c8 fd ff ff       	callq  1a2 <bitmap_bit_p(simple_bitmap_def const*, int)>
+     3da:	48 85 c0             	test   %rax,%rax
+     3dd:	0f 95 c0             	setne  %al
+     3e0:	c9                   	leaveq 
+     3e1:	c3                   	retq   
+
+00000000000003e2 <ignore_bb_p(basic_block_def const*)>:
+     3e2:	55                   	push   %rbp
+     3e3:	48 89 e5             	mov    %rsp,%rbp
+     3e6:	48 83 ec 20          	sub    $0x20,%rsp
+     3ea:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+     3ee:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     3f2:	8b 40 54             	mov    0x54(%rax),%eax
+     3f5:	83 f8 01             	cmp    $0x1,%eax
+     3f8:	7f 07                	jg     401 <ignore_bb_p(basic_block_def const*)+0x1f>
+     3fa:	b8 01 00 00 00       	mov    $0x1,%eax
+     3ff:	eb 5b                	jmp    45c <ignore_bb_p(basic_block_def const*)+0x7a>
+     401:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     405:	48 89 c7             	mov    %rax,%rdi
+     408:	e8 00 00 00 00       	callq  40d <ignore_bb_p(basic_block_def const*)+0x2b>
+     40d:	84 c0                	test   %al,%al
+     40f:	74 07                	je     418 <ignore_bb_p(basic_block_def const*)+0x36>
+     411:	b8 01 00 00 00       	mov    $0x1,%eax
+     416:	eb 44                	jmp    45c <ignore_bb_p(basic_block_def const*)+0x7a>
+     418:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     41c:	48 89 c7             	mov    %rax,%rdi
+     41f:	e8 00 00 00 00       	callq  424 <ignore_bb_p(basic_block_def const*)+0x42>
+     424:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+     428:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+     42d:	74 18                	je     447 <ignore_bb_p(basic_block_def const*)+0x65>
+     42f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     433:	48 89 c7             	mov    %rax,%rdi
+     436:	e8 53 fe ff ff       	callq  28e <gimple_code(gimple_statement_d const*)>
+     43b:	83 f8 09             	cmp    $0x9,%eax
+     43e:	75 07                	jne    447 <ignore_bb_p(basic_block_def const*)+0x65>
+     440:	b8 01 00 00 00       	mov    $0x1,%eax
+     445:	eb 05                	jmp    44c <ignore_bb_p(basic_block_def const*)+0x6a>
+     447:	b8 00 00 00 00       	mov    $0x0,%eax
+     44c:	84 c0                	test   %al,%al
+     44e:	74 07                	je     457 <ignore_bb_p(basic_block_def const*)+0x75>
+     450:	b8 01 00 00 00       	mov    $0x1,%eax
+     455:	eb 05                	jmp    45c <ignore_bb_p(basic_block_def const*)+0x7a>
+     457:	b8 00 00 00 00       	mov    $0x0,%eax
+     45c:	c9                   	leaveq 
+     45d:	c3                   	retq   
+
+000000000000045e <count_insns(basic_block_def*)>:
+     45e:	55                   	push   %rbp
+     45f:	48 89 e5             	mov    %rsp,%rbp
+     462:	48 83 c4 80          	add    $0xffffffffffffff80,%rsp
+     466:	48 89 7d c8          	mov    %rdi,-0x38(%rbp)
+     46a:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+     471:	48 8d 45 a0          	lea    -0x60(%rbp),%rax
+     475:	48 8b 55 c8          	mov    -0x38(%rbp),%rdx
+     479:	48 89 d6             	mov    %rdx,%rsi
+     47c:	48 89 c7             	mov    %rax,%rdi
+     47f:	e8 1e fe ff ff       	callq  2a2 <gsi_start_bb(basic_block_def*)>
+     484:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+     488:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
+     48c:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+     490:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
+     494:	48 8b 45 b0          	mov    -0x50(%rbp),%rax
+     498:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+     49c:	eb 43                	jmp    4e1 <count_insns(basic_block_def*)+0x83>
+     49e:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+     4a2:	48 89 04 24          	mov    %rax,(%rsp)
+     4a6:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     4aa:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+     4af:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+     4b3:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+     4b8:	e8 66 fe ff ff       	callq  323 <gsi_stmt(gimple_stmt_iterator_d)>
+     4bd:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+     4c1:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     4c5:	be 00 00 00 00       	mov    $0x0,%esi
+     4ca:	48 89 c7             	mov    %rax,%rdi
+     4cd:	e8 00 00 00 00       	callq  4d2 <count_insns(basic_block_def*)+0x74>
+     4d2:	01 45 fc             	add    %eax,-0x4(%rbp)
+     4d5:	48 8d 45 d0          	lea    -0x30(%rbp),%rax
+     4d9:	48 89 c7             	mov    %rax,%rdi
+     4dc:	e8 26 fe ff ff       	callq  307 <gsi_next(gimple_stmt_iterator_d*)>
+     4e1:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+     4e5:	48 89 04 24          	mov    %rax,(%rsp)
+     4e9:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     4ed:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+     4f2:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+     4f6:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+     4fb:	e8 f7 fd ff ff       	callq  2f7 <gsi_end_p(gimple_stmt_iterator_d)>
+     500:	83 f0 01             	xor    $0x1,%eax
+     503:	84 c0                	test   %al,%al
+     505:	75 97                	jne    49e <count_insns(basic_block_def*)+0x40>
+     507:	8b 45 fc             	mov    -0x4(%rbp),%eax
+     50a:	c9                   	leaveq 
+     50b:	c3                   	retq   
+
+000000000000050c <better_p(edge_def const*, edge_def const*)>:
+     50c:	55                   	push   %rbp
+     50d:	48 89 e5             	mov    %rsp,%rbp
+     510:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+     514:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+     518:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     51c:	48 8b 50 30          	mov    0x30(%rax),%rdx
+     520:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     524:	48 8b 40 30          	mov    0x30(%rax),%rax
+     528:	48 39 c2             	cmp    %rax,%rdx
+     52b:	74 1b                	je     548 <better_p(edge_def const*, edge_def const*)+0x3c>
+     52d:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     531:	48 8b 50 30          	mov    0x30(%rax),%rdx
+     535:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     539:	48 8b 40 30          	mov    0x30(%rax),%rax
+     53d:	48 39 c2             	cmp    %rax,%rdx
+     540:	0f 9f c0             	setg   %al
+     543:	e9 a4 00 00 00       	jmpq   5ec <better_p(edge_def const*, edge_def const*)+0xe0>
+     548:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     54c:	48 8b 00             	mov    (%rax),%rax
+     54f:	8b 50 60             	mov    0x60(%rax),%edx
+     552:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     556:	8b 40 2c             	mov    0x2c(%rax),%eax
+     559:	0f af d0             	imul   %eax,%edx
+     55c:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     560:	48 8b 00             	mov    (%rax),%rax
+     563:	8b 48 60             	mov    0x60(%rax),%ecx
+     566:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     56a:	8b 40 2c             	mov    0x2c(%rax),%eax
+     56d:	0f af c1             	imul   %ecx,%eax
+     570:	39 c2                	cmp    %eax,%edx
+     572:	74 2f                	je     5a3 <better_p(edge_def const*, edge_def const*)+0x97>
+     574:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     578:	48 8b 00             	mov    (%rax),%rax
+     57b:	8b 50 60             	mov    0x60(%rax),%edx
+     57e:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     582:	8b 40 2c             	mov    0x2c(%rax),%eax
+     585:	0f af d0             	imul   %eax,%edx
+     588:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     58c:	48 8b 00             	mov    (%rax),%rax
+     58f:	8b 48 60             	mov    0x60(%rax),%ecx
+     592:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     596:	8b 40 2c             	mov    0x2c(%rax),%eax
+     599:	0f af c1             	imul   %ecx,%eax
+     59c:	39 c2                	cmp    %eax,%edx
+     59e:	0f 9f c0             	setg   %al
+     5a1:	eb 49                	jmp    5ec <better_p(edge_def const*, edge_def const*)+0xe0>
+     5a3:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     5a7:	48 8b 10             	mov    (%rax),%rdx
+     5aa:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     5ae:	48 8b 00             	mov    (%rax),%rax
+     5b1:	48 39 c2             	cmp    %rax,%rdx
+     5b4:	74 1b                	je     5d1 <better_p(edge_def const*, edge_def const*)+0xc5>
+     5b6:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     5ba:	48 8b 00             	mov    (%rax),%rax
+     5bd:	8b 50 54             	mov    0x54(%rax),%edx
+     5c0:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     5c4:	48 8b 00             	mov    (%rax),%rax
+     5c7:	8b 40 54             	mov    0x54(%rax),%eax
+     5ca:	39 c2                	cmp    %eax,%edx
+     5cc:	0f 9f c0             	setg   %al
+     5cf:	eb 1b                	jmp    5ec <better_p(edge_def const*, edge_def const*)+0xe0>
+     5d1:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     5d5:	48 8b 40 08          	mov    0x8(%rax),%rax
+     5d9:	8b 50 54             	mov    0x54(%rax),%edx
+     5dc:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     5e0:	48 8b 40 08          	mov    0x8(%rax),%rax
+     5e4:	8b 40 54             	mov    0x54(%rax),%eax
+     5e7:	39 c2                	cmp    %eax,%edx
+     5e9:	0f 9f c0             	setg   %al
+     5ec:	5d                   	pop    %rbp
+     5ed:	c3                   	retq   
+
+00000000000005ee <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)>:
+     5ee:	55                   	push   %rbp
+     5ef:	48 89 e5             	mov    %rsp,%rbp
+     5f2:	48 83 ec 40          	sub    $0x40,%rsp
+     5f6:	48 89 7d d8          	mov    %rdi,-0x28(%rbp)
+     5fa:	48 c7 45 f8 00 00 00 	movq   $0x0,-0x8(%rbp)
+     601:	00 
+     602:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     606:	48 83 c0 08          	add    $0x8,%rax
+     60a:	48 89 c7             	mov    %rax,%rdi
+     60d:	e8 28 fa ff ff       	callq  3a <ei_start_1(vec<edge_def*, va_gc, vl_embed>**)>
+     612:	89 c1                	mov    %eax,%ecx
+     614:	48 89 d0             	mov    %rdx,%rax
+     617:	89 4d c0             	mov    %ecx,-0x40(%rbp)
+     61a:	48 89 45 c8          	mov    %rax,-0x38(%rbp)
+     61e:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
+     622:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+     626:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+     62a:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+     62e:	eb 42                	jmp    672 <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)+0x84>
+     630:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+     635:	74 17                	je     64e <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)+0x60>
+     637:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     63b:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
+     63f:	48 89 d6             	mov    %rdx,%rsi
+     642:	48 89 c7             	mov    %rax,%rdi
+     645:	e8 c2 fe ff ff       	callq  50c <better_p(edge_def const*, edge_def const*)>
+     64a:	84 c0                	test   %al,%al
+     64c:	74 07                	je     655 <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)+0x67>
+     64e:	b8 01 00 00 00       	mov    $0x1,%eax
+     653:	eb 05                	jmp    65a <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)+0x6c>
+     655:	b8 00 00 00 00       	mov    $0x0,%eax
+     65a:	84 c0                	test   %al,%al
+     65c:	74 08                	je     666 <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)+0x78>
+     65e:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     662:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+     666:	48 8d 45 e0          	lea    -0x20(%rbp),%rax
+     66a:	48 89 c7             	mov    %rax,%rdi
+     66d:	e8 35 fa ff ff       	callq  a7 <ei_next(edge_iterator*)>
+     672:	48 8d 55 f0          	lea    -0x10(%rbp),%rdx
+     676:	8b 4d e0             	mov    -0x20(%rbp),%ecx
+     679:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     67d:	89 cf                	mov    %ecx,%edi
+     67f:	48 89 c6             	mov    %rax,%rsi
+     682:	e8 ba fa ff ff       	callq  141 <ei_cond(edge_iterator, edge_def**)>
+     687:	84 c0                	test   %al,%al
+     689:	75 a5                	jne    630 <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)+0x42>
+     68b:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+     690:	74 14                	je     6a6 <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)+0xb8>
+     692:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     696:	48 8b 40 08          	mov    0x8(%rax),%rax
+     69a:	48 89 c7             	mov    %rax,%rdi
+     69d:	e8 40 fd ff ff       	callq  3e2 <ignore_bb_p(basic_block_def const*)>
+     6a2:	84 c0                	test   %al,%al
+     6a4:	74 07                	je     6ad <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)+0xbf>
+     6a6:	b8 01 00 00 00       	mov    $0x1,%eax
+     6ab:	eb 05                	jmp    6b2 <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)+0xc4>
+     6ad:	b8 00 00 00 00       	mov    $0x0,%eax
+     6b2:	84 c0                	test   %al,%al
+     6b4:	74 07                	je     6bd <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)+0xcf>
+     6b6:	b8 00 00 00 00       	mov    $0x0,%eax
+     6bb:	eb 1c                	jmp    6d9 <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)+0xeb>
+     6bd:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     6c1:	8b 50 2c             	mov    0x2c(%rax),%edx
+     6c4:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 6ca <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)+0xdc>
+     6ca:	39 c2                	cmp    %eax,%edx
+     6cc:	7f 07                	jg     6d5 <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)+0xe7>
+     6ce:	b8 00 00 00 00       	mov    $0x0,%eax
+     6d3:	eb 04                	jmp    6d9 <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)+0xeb>
+     6d5:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     6d9:	c9                   	leaveq 
+     6da:	c3                   	retq   
+     6db:	90                   	nop
+
+00000000000006dc <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)>:
+     6dc:	55                   	push   %rbp
+     6dd:	48 89 e5             	mov    %rsp,%rbp
+     6e0:	48 83 ec 40          	sub    $0x40,%rsp
+     6e4:	48 89 7d d8          	mov    %rdi,-0x28(%rbp)
+     6e8:	48 c7 45 f8 00 00 00 	movq   $0x0,-0x8(%rbp)
+     6ef:	00 
+     6f0:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     6f4:	48 89 c7             	mov    %rax,%rdi
+     6f7:	e8 3e f9 ff ff       	callq  3a <ei_start_1(vec<edge_def*, va_gc, vl_embed>**)>
+     6fc:	89 c1                	mov    %eax,%ecx
+     6fe:	48 89 d0             	mov    %rdx,%rax
+     701:	89 4d c0             	mov    %ecx,-0x40(%rbp)
+     704:	48 89 45 c8          	mov    %rax,-0x38(%rbp)
+     708:	48 8b 45 c0          	mov    -0x40(%rbp),%rax
+     70c:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+     710:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+     714:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+     718:	eb 42                	jmp    75c <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)+0x80>
+     71a:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+     71f:	74 17                	je     738 <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)+0x5c>
+     721:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     725:	48 8b 55 f8          	mov    -0x8(%rbp),%rdx
+     729:	48 89 d6             	mov    %rdx,%rsi
+     72c:	48 89 c7             	mov    %rax,%rdi
+     72f:	e8 d8 fd ff ff       	callq  50c <better_p(edge_def const*, edge_def const*)>
+     734:	84 c0                	test   %al,%al
+     736:	74 07                	je     73f <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)+0x63>
+     738:	b8 01 00 00 00       	mov    $0x1,%eax
+     73d:	eb 05                	jmp    744 <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)+0x68>
+     73f:	b8 00 00 00 00       	mov    $0x0,%eax
+     744:	84 c0                	test   %al,%al
+     746:	74 08                	je     750 <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)+0x74>
+     748:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     74c:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+     750:	48 8d 45 e0          	lea    -0x20(%rbp),%rax
+     754:	48 89 c7             	mov    %rax,%rdi
+     757:	e8 4b f9 ff ff       	callq  a7 <ei_next(edge_iterator*)>
+     75c:	48 8d 55 f0          	lea    -0x10(%rbp),%rdx
+     760:	8b 4d e0             	mov    -0x20(%rbp),%ecx
+     763:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     767:	89 cf                	mov    %ecx,%edi
+     769:	48 89 c6             	mov    %rax,%rsi
+     76c:	e8 d0 f9 ff ff       	callq  141 <ei_cond(edge_iterator, edge_def**)>
+     771:	84 c0                	test   %al,%al
+     773:	75 a5                	jne    71a <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)+0x3e>
+     775:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+     77a:	74 13                	je     78f <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)+0xb3>
+     77c:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     780:	48 8b 00             	mov    (%rax),%rax
+     783:	48 89 c7             	mov    %rax,%rdi
+     786:	e8 57 fc ff ff       	callq  3e2 <ignore_bb_p(basic_block_def const*)>
+     78b:	84 c0                	test   %al,%al
+     78d:	74 07                	je     796 <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)+0xba>
+     78f:	b8 01 00 00 00       	mov    $0x1,%eax
+     794:	eb 05                	jmp    79b <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)+0xbf>
+     796:	b8 00 00 00 00       	mov    $0x0,%eax
+     79b:	84 c0                	test   %al,%al
+     79d:	74 07                	je     7a6 <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)+0xca>
+     79f:	b8 00 00 00 00       	mov    $0x0,%eax
+     7a4:	eb 56                	jmp    7fc <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)+0x120>
+     7a6:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     7aa:	48 8b 00             	mov    (%rax),%rax
+     7ad:	8b 50 60             	mov    0x60(%rax),%edx
+     7b0:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     7b4:	8b 40 2c             	mov    0x2c(%rax),%eax
+     7b7:	0f af c2             	imul   %edx,%eax
+     7ba:	8d 88 88 13 00 00    	lea    0x1388(%rax),%ecx
+     7c0:	ba ad 8b db 68       	mov    $0x68db8bad,%edx
+     7c5:	89 c8                	mov    %ecx,%eax
+     7c7:	f7 ea                	imul   %edx
+     7c9:	c1 fa 0c             	sar    $0xc,%edx
+     7cc:	89 c8                	mov    %ecx,%eax
+     7ce:	c1 f8 1f             	sar    $0x1f,%eax
+     7d1:	89 d1                	mov    %edx,%ecx
+     7d3:	29 c1                	sub    %eax,%ecx
+     7d5:	89 c8                	mov    %ecx,%eax
+     7d7:	69 d0 10 27 00 00    	imul   $0x2710,%eax,%edx
+     7dd:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     7e1:	8b 48 60             	mov    0x60(%rax),%ecx
+     7e4:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 7ea <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)+0x10e>
+     7ea:	0f af c1             	imul   %ecx,%eax
+     7ed:	39 c2                	cmp    %eax,%edx
+     7ef:	7d 07                	jge    7f8 <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)+0x11c>
+     7f1:	b8 00 00 00 00       	mov    $0x0,%eax
+     7f6:	eb 04                	jmp    7fc <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)+0x120>
+     7f8:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+     7fc:	c9                   	leaveq 
+     7fd:	c3                   	retq   
+
+00000000000007fe <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)>:
+     7fe:	55                   	push   %rbp
+     7ff:	48 89 e5             	mov    %rsp,%rbp
+     802:	48 83 ec 30          	sub    $0x30,%rsp
+     806:	48 89 7d d8          	mov    %rdi,-0x28(%rbp)
+     80a:	48 89 75 d0          	mov    %rsi,-0x30(%rbp)
+     80e:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+     815:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 81c <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x1e>
+     81c:	48 85 c0             	test   %rax,%rax
+     81f:	0f 84 b2 00 00 00    	je     8d7 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0xd9>
+     825:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     829:	8b 48 60             	mov    0x60(%rax),%ecx
+     82c:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     830:	8b 50 54             	mov    0x54(%rax),%edx
+     833:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 83a <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x3c>
+     83a:	be 00 00 00 00       	mov    $0x0,%esi
+     83f:	48 89 c7             	mov    %rax,%rdi
+     842:	b8 00 00 00 00       	mov    $0x0,%eax
+     847:	e8 00 00 00 00       	callq  84c <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x4e>
+     84c:	e9 86 00 00 00       	jmpq   8d7 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0xd9>
+     851:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     855:	48 8b 00             	mov    (%rax),%rax
+     858:	48 89 45 e8          	mov    %rax,-0x18(%rbp)
+     85c:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     860:	48 89 c7             	mov    %rax,%rdi
+     863:	e8 4e fb ff ff       	callq  3b6 <(anonymous namespace)::tracer_state::bb_seen_p(basic_block_def*)>
+     868:	84 c0                	test   %al,%al
+     86a:	75 20                	jne    88c <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x8e>
+     86c:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     870:	8b 40 28             	mov    0x28(%rax),%eax
+     873:	83 e0 5e             	and    $0x5e,%eax
+     876:	85 c0                	test   %eax,%eax
+     878:	75 12                	jne    88c <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x8e>
+     87a:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     87e:	48 89 c7             	mov    %rax,%rdi
+     881:	e8 68 fd ff ff       	callq  5ee <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)>
+     886:	48 3b 45 f0          	cmp    -0x10(%rbp),%rax
+     88a:	74 07                	je     893 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x95>
+     88c:	b8 01 00 00 00       	mov    $0x1,%eax
+     891:	eb 05                	jmp    898 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x9a>
+     893:	b8 00 00 00 00       	mov    $0x0,%eax
+     898:	84 c0                	test   %al,%al
+     89a:	75 5d                	jne    8f9 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0xfb>
+     89c:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 8a3 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0xa5>
+     8a3:	48 85 c0             	test   %rax,%rax
+     8a6:	74 27                	je     8cf <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0xd1>
+     8a8:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     8ac:	8b 48 60             	mov    0x60(%rax),%ecx
+     8af:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     8b3:	8b 50 54             	mov    0x54(%rax),%edx
+     8b6:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 8bd <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0xbf>
+     8bd:	be 00 00 00 00       	mov    $0x0,%esi
+     8c2:	48 89 c7             	mov    %rax,%rdi
+     8c5:	b8 00 00 00 00       	mov    $0x0,%eax
+     8ca:	e8 00 00 00 00       	callq  8cf <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0xd1>
+     8cf:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+     8d3:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
+     8d7:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     8db:	48 89 c7             	mov    %rax,%rdi
+     8de:	e8 f9 fd ff ff       	callq  6dc <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)>
+     8e3:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+     8e7:	48 83 7d f0 00       	cmpq   $0x0,-0x10(%rbp)
+     8ec:	0f 95 c0             	setne  %al
+     8ef:	84 c0                	test   %al,%al
+     8f1:	0f 85 5a ff ff ff    	jne    851 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x53>
+     8f7:	eb 01                	jmp    8fa <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0xfc>
+     8f9:	90                   	nop
+     8fa:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 901 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x103>
+     901:	48 85 c0             	test   %rax,%rax
+     904:	74 27                	je     92d <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x12f>
+     906:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     90a:	8b 48 60             	mov    0x60(%rax),%ecx
+     90d:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     911:	8b 50 54             	mov    0x54(%rax),%edx
+     914:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 91b <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x11d>
+     91b:	be 00 00 00 00       	mov    $0x0,%esi
+     920:	48 89 c7             	mov    %rax,%rdi
+     923:	b8 00 00 00 00       	mov    $0x0,%eax
+     928:	e8 00 00 00 00       	callq  92d <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x12f>
+     92d:	8b 45 fc             	mov    -0x4(%rbp),%eax
+     930:	48 98                	cltq   
+     932:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+     939:	00 
+     93a:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+     93e:	48 01 c2             	add    %rax,%rdx
+     941:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     945:	48 89 02             	mov    %rax,(%rdx)
+     948:	83 45 fc 01          	addl   $0x1,-0x4(%rbp)
+     94c:	e9 9e 00 00 00       	jmpq   9ef <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x1f1>
+     951:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     955:	48 8b 40 08          	mov    0x8(%rax),%rax
+     959:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
+     95d:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     961:	48 89 c7             	mov    %rax,%rdi
+     964:	e8 4d fa ff ff       	callq  3b6 <(anonymous namespace)::tracer_state::bb_seen_p(basic_block_def*)>
+     969:	84 c0                	test   %al,%al
+     96b:	75 20                	jne    98d <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x18f>
+     96d:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+     971:	8b 40 28             	mov    0x28(%rax),%eax
+     974:	83 e0 5e             	and    $0x5e,%eax
+     977:	85 c0                	test   %eax,%eax
+     979:	75 12                	jne    98d <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x18f>
+     97b:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     97f:	48 89 c7             	mov    %rax,%rdi
+     982:	e8 55 fd ff ff       	callq  6dc <(anonymous namespace)::tracer_state::find_best_predecessor(basic_block_def*)>
+     987:	48 3b 45 f0          	cmp    -0x10(%rbp),%rax
+     98b:	74 07                	je     994 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x196>
+     98d:	b8 01 00 00 00       	mov    $0x1,%eax
+     992:	eb 05                	jmp    999 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x19b>
+     994:	b8 00 00 00 00       	mov    $0x0,%eax
+     999:	84 c0                	test   %al,%al
+     99b:	75 74                	jne    a11 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x213>
+     99d:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 9a4 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x1a6>
+     9a4:	48 85 c0             	test   %rax,%rax
+     9a7:	74 27                	je     9d0 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x1d2>
+     9a9:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     9ad:	8b 48 60             	mov    0x60(%rax),%ecx
+     9b0:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     9b4:	8b 50 54             	mov    0x54(%rax),%edx
+     9b7:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 9be <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x1c0>
+     9be:	be 00 00 00 00       	mov    $0x0,%esi
+     9c3:	48 89 c7             	mov    %rax,%rdi
+     9c6:	b8 00 00 00 00       	mov    $0x0,%eax
+     9cb:	e8 00 00 00 00       	callq  9d0 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x1d2>
+     9d0:	8b 45 fc             	mov    -0x4(%rbp),%eax
+     9d3:	48 98                	cltq   
+     9d5:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+     9dc:	00 
+     9dd:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+     9e1:	48 01 c2             	add    %rax,%rdx
+     9e4:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     9e8:	48 89 02             	mov    %rax,(%rdx)
+     9eb:	83 45 fc 01          	addl   $0x1,-0x4(%rbp)
+     9ef:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+     9f3:	48 89 c7             	mov    %rax,%rdi
+     9f6:	e8 f3 fb ff ff       	callq  5ee <(anonymous namespace)::tracer_state::find_best_successor(basic_block_def*)>
+     9fb:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+     9ff:	48 83 7d f0 00       	cmpq   $0x0,-0x10(%rbp)
+     a04:	0f 95 c0             	setne  %al
+     a07:	84 c0                	test   %al,%al
+     a09:	0f 85 42 ff ff ff    	jne    951 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x153>
+     a0f:	eb 01                	jmp    a12 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x214>
+     a11:	90                   	nop
+     a12:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a19 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x21b>
+     a19:	48 85 c0             	test   %rax,%rax
+     a1c:	74 14                	je     a32 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x234>
+     a1e:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a25 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x227>
+     a25:	48 89 c6             	mov    %rax,%rsi
+     a28:	bf 0a 00 00 00       	mov    $0xa,%edi
+     a2d:	e8 00 00 00 00       	callq  a32 <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x234>
+     a32:	8b 45 fc             	mov    -0x4(%rbp),%eax
+     a35:	c9                   	leaveq 
+     a36:	c3                   	retq   
+     a37:	90                   	nop
+
+0000000000000a38 <(anonymous namespace)::tracer_state::tail_duplicate()>:
+     a38:	55                   	push   %rbp
+     a39:	48 89 e5             	mov    %rsp,%rbp
+     a3c:	53                   	push   %rbx
+     a3d:	48 81 ec 98 00 00 00 	sub    $0x98,%rsp
+     a44:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a4b <(anonymous namespace)::tracer_state::tail_duplicate()+0x13>
+     a4b:	48 8b 40 08          	mov    0x8(%rax),%rax
+     a4f:	8b 40 20             	mov    0x20(%rax),%eax
+     a52:	48 98                	cltq   
+     a54:	be 08 00 00 00       	mov    $0x8,%esi
+     a59:	48 89 c7             	mov    %rax,%rdi
+     a5c:	e8 00 00 00 00       	callq  a61 <(anonymous namespace)::tracer_state::tail_duplicate()+0x29>
+     a61:	48 89 45 a0          	mov    %rax,-0x60(%rbp)
+     a65:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a6c <(anonymous namespace)::tracer_state::tail_duplicate()+0x34>
+     a6c:	48 8b 40 08          	mov    0x8(%rax),%rax
+     a70:	8b 40 18             	mov    0x18(%rax),%eax
+     a73:	48 98                	cltq   
+     a75:	48 c1 e0 03          	shl    $0x3,%rax
+     a79:	48 89 c7             	mov    %rax,%rdi
+     a7c:	e8 00 00 00 00       	callq  a81 <(anonymous namespace)::tracer_state::tail_duplicate()+0x49>
+     a81:	48 89 45 98          	mov    %rax,-0x68(%rbp)
+     a85:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a8c <(anonymous namespace)::tracer_state::tail_duplicate()+0x54>
+     a8c:	48 8b 40 08          	mov    0x8(%rax),%rax
+     a90:	8b 40 20             	mov    0x20(%rax),%eax
+     a93:	48 98                	cltq   
+     a95:	48 c1 e0 02          	shl    $0x2,%rax
+     a99:	48 89 c7             	mov    %rax,%rdi
+     a9c:	e8 00 00 00 00       	callq  aa1 <(anonymous namespace)::tracer_state::tail_duplicate()+0x69>
+     aa1:	48 89 45 90          	mov    %rax,-0x70(%rbp)
+     aa5:	c7 45 ec 00 00 00 00 	movl   $0x0,-0x14(%rbp)
+     aac:	c7 45 e8 00 00 00 00 	movl   $0x0,-0x18(%rbp)
+     ab3:	48 c7 45 e0 00 00 00 	movq   $0x0,-0x20(%rbp)
+     aba:	00 
+     abb:	48 c7 45 d8 00 00 00 	movq   $0x0,-0x28(%rbp)
+     ac2:	00 
+     ac3:	e8 00 00 00 00       	callq  ac8 <(anonymous namespace)::tracer_state::tail_duplicate()+0x90>
+     ac8:	48 89 45 88          	mov    %rax,-0x78(%rbp)
+     acc:	c6 45 c7 00          	movb   $0x0,-0x39(%rbp)
+     ad0:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # ad7 <(anonymous namespace)::tracer_state::tail_duplicate()+0x9f>
+     ad7:	48 8b 40 08          	mov    0x8(%rax),%rax
+     adb:	8b 40 20             	mov    0x20(%rax),%eax
+     ade:	01 c0                	add    %eax,%eax
+     ae0:	89 c7                	mov    %eax,%edi
+     ae2:	e8 00 00 00 00       	callq  ae7 <(anonymous namespace)::tracer_state::tail_duplicate()+0xaf>
+     ae7:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # aee <(anonymous namespace)::tracer_state::tail_duplicate()+0xb6>
+     aee:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # af5 <(anonymous namespace)::tracer_state::tail_duplicate()+0xbd>
+     af5:	48 89 c7             	mov    %rax,%rdi
+     af8:	e8 00 00 00 00       	callq  afd <(anonymous namespace)::tracer_state::tail_duplicate()+0xc5>
+     afd:	e8 00 00 00 00       	callq  b02 <(anonymous namespace)::tracer_state::tail_duplicate()+0xca>
+     b02:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # b09 <(anonymous namespace)::tracer_state::tail_duplicate()+0xd1>
+     b09:	48 85 c0             	test   %rax,%rax
+     b0c:	74 1f                	je     b2d <(anonymous namespace)::tracer_state::tail_duplicate()+0xf5>
+     b0e:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # b14 <(anonymous namespace)::tracer_state::tail_duplicate()+0xdc>
+     b14:	85 c0                	test   %eax,%eax
+     b16:	74 15                	je     b2d <(anonymous namespace)::tracer_state::tail_duplicate()+0xf5>
+     b18:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # b1f <(anonymous namespace)::tracer_state::tail_duplicate()+0xe7>
+     b1f:	8b 80 f0 00 00 00    	mov    0xf0(%rax),%eax
+     b25:	89 05 00 00 00 00    	mov    %eax,0x0(%rip)        # b2b <(anonymous namespace)::tracer_state::tail_duplicate()+0xf3>
+     b2b:	eb 13                	jmp    b40 <(anonymous namespace)::tracer_state::tail_duplicate()+0x108>
+     b2d:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # b34 <(anonymous namespace)::tracer_state::tail_duplicate()+0xfc>
+     b34:	8b 80 f4 00 00 00    	mov    0xf4(%rax),%eax
+     b3a:	89 05 00 00 00 00    	mov    %eax,0x0(%rip)        # b40 <(anonymous namespace)::tracer_state::tail_duplicate()+0x108>
+     b40:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # b46 <(anonymous namespace)::tracer_state::tail_duplicate()+0x10e>
+     b46:	6b c0 64             	imul   $0x64,%eax,%eax
+     b49:	89 05 00 00 00 00    	mov    %eax,0x0(%rip)        # b4f <(anonymous namespace)::tracer_state::tail_duplicate()+0x117>
+     b4f:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # b56 <(anonymous namespace)::tracer_state::tail_duplicate()+0x11e>
+     b56:	48 05 ec 00 00 00    	add    $0xec,%rax
+     b5c:	8b 00                	mov    (%rax),%eax
+     b5e:	6b c0 64             	imul   $0x64,%eax,%eax
+     b61:	89 05 00 00 00 00    	mov    %eax,0x0(%rip)        # b67 <(anonymous namespace)::tracer_state::tail_duplicate()+0x12f>
+     b67:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # b6e <(anonymous namespace)::tracer_state::tail_duplicate()+0x136>
+     b6e:	48 8b 40 08          	mov    0x8(%rax),%rax
+     b72:	48 8b 00             	mov    (%rax),%rax
+     b75:	48 8b 40 38          	mov    0x38(%rax),%rax
+     b79:	48 89 45 c8          	mov    %rax,-0x38(%rbp)
+     b7d:	e9 9d 00 00 00       	jmpq   c1f <(anonymous namespace)::tracer_state::tail_duplicate()+0x1e7>
+     b82:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+     b86:	48 89 c7             	mov    %rax,%rdi
+     b89:	e8 d0 f8 ff ff       	callq  45e <count_insns(basic_block_def*)>
+     b8e:	89 45 84             	mov    %eax,-0x7c(%rbp)
+     b91:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+     b95:	48 89 c7             	mov    %rax,%rdi
+     b98:	e8 45 f8 ff ff       	callq  3e2 <ignore_bb_p(basic_block_def const*)>
+     b9d:	83 f0 01             	xor    $0x1,%eax
+     ba0:	84 c0                	test   %al,%al
+     ba2:	74 3b                	je     bdf <(anonymous namespace)::tracer_state::tail_duplicate()+0x1a7>
+     ba4:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+     ba8:	8b 40 54             	mov    0x54(%rax),%eax
+     bab:	48 98                	cltq   
+     bad:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+     bb4:	00 
+     bb5:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+     bb9:	48 8d 1c 02          	lea    (%rdx,%rax,1),%rbx
+     bbd:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+     bc1:	8b 40 60             	mov    0x60(%rax),%eax
+     bc4:	f7 d8                	neg    %eax
+     bc6:	48 63 c8             	movslq %eax,%rcx
+     bc9:	48 8b 55 c8          	mov    -0x38(%rbp),%rdx
+     bcd:	48 8b 45 88          	mov    -0x78(%rbp),%rax
+     bd1:	48 89 ce             	mov    %rcx,%rsi
+     bd4:	48 89 c7             	mov    %rax,%rdi
+     bd7:	e8 00 00 00 00       	callq  bdc <(anonymous namespace)::tracer_state::tail_duplicate()+0x1a4>
+     bdc:	48 89 03             	mov    %rax,(%rbx)
+     bdf:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+     be3:	8b 40 54             	mov    0x54(%rax),%eax
+     be6:	48 98                	cltq   
+     be8:	48 8d 14 85 00 00 00 	lea    0x0(,%rax,4),%rdx
+     bef:	00 
+     bf0:	48 8b 45 90          	mov    -0x70(%rbp),%rax
+     bf4:	48 01 c2             	add    %rax,%rdx
+     bf7:	8b 45 84             	mov    -0x7c(%rbp),%eax
+     bfa:	89 02                	mov    %eax,(%rdx)
+     bfc:	8b 45 84             	mov    -0x7c(%rbp),%eax
+     bff:	01 45 ec             	add    %eax,-0x14(%rbp)
+     c02:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+     c06:	8b 40 60             	mov    0x60(%rax),%eax
+     c09:	0f af 45 84          	imul   -0x7c(%rbp),%eax
+     c0d:	48 98                	cltq   
+     c0f:	48 01 45 e0          	add    %rax,-0x20(%rbp)
+     c13:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+     c17:	48 8b 40 38          	mov    0x38(%rax),%rax
+     c1b:	48 89 45 c8          	mov    %rax,-0x38(%rbp)
+     c1f:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # c26 <(anonymous namespace)::tracer_state::tail_duplicate()+0x1ee>
+     c26:	48 8b 40 08          	mov    0x8(%rax),%rax
+     c2a:	48 8b 40 08          	mov    0x8(%rax),%rax
+     c2e:	48 3b 45 c8          	cmp    -0x38(%rbp),%rax
+     c32:	0f 95 c0             	setne  %al
+     c35:	84 c0                	test   %al,%al
+     c37:	0f 85 45 ff ff ff    	jne    b82 <(anonymous namespace)::tracer_state::tail_duplicate()+0x14a>
+     c3d:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # c44 <(anonymous namespace)::tracer_state::tail_duplicate()+0x20c>
+     c44:	48 85 c0             	test   %rax,%rax
+     c47:	74 21                	je     c6a <(anonymous namespace)::tracer_state::tail_duplicate()+0x232>
+     c49:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # c4f <(anonymous namespace)::tracer_state::tail_duplicate()+0x217>
+     c4f:	85 c0                	test   %eax,%eax
+     c51:	74 17                	je     c6a <(anonymous namespace)::tracer_state::tail_duplicate()+0x232>
+     c53:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # c5a <(anonymous namespace)::tracer_state::tail_duplicate()+0x222>
+     c5a:	48 05 e0 00 00 00    	add    $0xe0,%rax
+     c60:	8b 00                	mov    (%rax),%eax
+     c62:	48 98                	cltq   
+     c64:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
+     c68:	eb 15                	jmp    c7f <(anonymous namespace)::tracer_state::tail_duplicate()+0x247>
+     c6a:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # c71 <(anonymous namespace)::tracer_state::tail_duplicate()+0x239>
+     c71:	48 05 e4 00 00 00    	add    $0xe4,%rax
+     c77:	8b 00                	mov    (%rax),%eax
+     c79:	48 98                	cltq   
+     c7b:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
+     c7f:	48 8b 45 e0          	mov    -0x20(%rbp),%rax
+     c83:	48 0f af 45 d0       	imul   -0x30(%rbp),%rax
+     c88:	48 8d 48 32          	lea    0x32(%rax),%rcx
+     c8c:	48 ba 0b d7 a3 70 3d 	movabs $0xa3d70a3d70a3d70b,%rdx
+     c93:	0a d7 a3 
+     c96:	48 89 c8             	mov    %rcx,%rax
+     c99:	48 f7 ea             	imul   %rdx
+     c9c:	48 8d 04 0a          	lea    (%rdx,%rcx,1),%rax
+     ca0:	48 89 c2             	mov    %rax,%rdx
+     ca3:	48 c1 fa 06          	sar    $0x6,%rdx
+     ca7:	48 89 c8             	mov    %rcx,%rax
+     caa:	48 c1 f8 3f          	sar    $0x3f,%rax
+     cae:	48 89 d1             	mov    %rdx,%rcx
+     cb1:	48 29 c1             	sub    %rax,%rcx
+     cb4:	48 89 c8             	mov    %rcx,%rax
+     cb7:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
+     cbb:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # cc2 <(anonymous namespace)::tracer_state::tail_duplicate()+0x28a>
+     cc2:	48 05 e8 00 00 00    	add    $0xe8,%rax
+     cc8:	8b 00                	mov    (%rax),%eax
+     cca:	0f af 45 ec          	imul   -0x14(%rbp),%eax
+     cce:	8d 48 32             	lea    0x32(%rax),%ecx
+     cd1:	ba 1f 85 eb 51       	mov    $0x51eb851f,%edx
+     cd6:	89 c8                	mov    %ecx,%eax
+     cd8:	f7 ea                	imul   %edx
+     cda:	c1 fa 05             	sar    $0x5,%edx
+     cdd:	89 c8                	mov    %ecx,%eax
+     cdf:	c1 f8 1f             	sar    $0x1f,%eax
+     ce2:	89 d1                	mov    %edx,%ecx
+     ce4:	29 c1                	sub    %eax,%ecx
+     ce6:	89 c8                	mov    %ecx,%eax
+     ce8:	89 45 80             	mov    %eax,-0x80(%rbp)
+     ceb:	e9 cd 03 00 00       	jmpq   10bd <(anonymous namespace)::tracer_state::tail_duplicate()+0x685>
+     cf0:	48 8b 45 88          	mov    -0x78(%rbp),%rax
+     cf4:	48 89 c7             	mov    %rax,%rdi
+     cf7:	e8 00 00 00 00       	callq  cfc <(anonymous namespace)::tracer_state::tail_duplicate()+0x2c4>
+     cfc:	48 89 45 b8          	mov    %rax,-0x48(%rbp)
+     d00:	48 83 7d b8 00       	cmpq   $0x0,-0x48(%rbp)
+     d05:	0f 84 ea 03 00 00    	je     10f5 <(anonymous namespace)::tracer_state::tail_duplicate()+0x6bd>
+     d0b:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+     d0f:	8b 40 54             	mov    0x54(%rax),%eax
+     d12:	48 98                	cltq   
+     d14:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+     d1b:	00 
+     d1c:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+     d20:	48 01 d0             	add    %rdx,%rax
+     d23:	48 c7 00 00 00 00 00 	movq   $0x0,(%rax)
+     d2a:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+     d2e:	48 89 c7             	mov    %rax,%rdi
+     d31:	e8 ac f6 ff ff       	callq  3e2 <ignore_bb_p(basic_block_def const*)>
+     d36:	84 c0                	test   %al,%al
+     d38:	0f 85 7e 03 00 00    	jne    10bc <(anonymous namespace)::tracer_state::tail_duplicate()+0x684>
+     d3e:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+     d42:	48 89 c7             	mov    %rax,%rdi
+     d45:	e8 6c f6 ff ff       	callq  3b6 <(anonymous namespace)::tracer_state::bb_seen_p(basic_block_def*)>
+     d4a:	84 c0                	test   %al,%al
+     d4c:	74 14                	je     d62 <(anonymous namespace)::tracer_state::tail_duplicate()+0x32a>
+     d4e:	ba 00 00 00 00       	mov    $0x0,%edx
+     d53:	be 34 01 00 00       	mov    $0x134,%esi
+     d58:	bf 00 00 00 00       	mov    $0x0,%edi
+     d5d:	e8 00 00 00 00       	callq  d62 <(anonymous namespace)::tracer_state::tail_duplicate()+0x32a>
+     d62:	48 8b 55 98          	mov    -0x68(%rbp),%rdx
+     d66:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+     d6a:	48 89 d6             	mov    %rdx,%rsi
+     d6d:	48 89 c7             	mov    %rax,%rdi
+     d70:	e8 89 fa ff ff       	callq  7fe <(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)>
+     d75:	89 85 7c ff ff ff    	mov    %eax,-0x84(%rbp)
+     d7b:	48 8b 45 98          	mov    -0x68(%rbp),%rax
+     d7f:	48 8b 00             	mov    (%rax),%rax
+     d82:	48 89 45 b8          	mov    %rax,-0x48(%rbp)
+     d86:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+     d8a:	8b 50 60             	mov    0x60(%rax),%edx
+     d8d:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+     d91:	8b 40 54             	mov    0x54(%rax),%eax
+     d94:	48 98                	cltq   
+     d96:	48 8d 0c 85 00 00 00 	lea    0x0(,%rax,4),%rcx
+     d9d:	00 
+     d9e:	48 8b 45 90          	mov    -0x70(%rbp),%rax
+     da2:	48 01 c8             	add    %rcx,%rax
+     da5:	8b 00                	mov    (%rax),%eax
+     da7:	0f af c2             	imul   %edx,%eax
+     daa:	48 98                	cltq   
+     dac:	48 01 45 d8          	add    %rax,-0x28(%rbp)
+     db0:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+     db4:	8b 40 54             	mov    0x54(%rax),%eax
+     db7:	48 98                	cltq   
+     db9:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+     dc0:	00 
+     dc1:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+     dc5:	48 01 d0             	add    %rdx,%rax
+     dc8:	48 8b 00             	mov    (%rax),%rax
+     dcb:	48 85 c0             	test   %rax,%rax
+     dce:	74 49                	je     e19 <(anonymous namespace)::tracer_state::tail_duplicate()+0x3e1>
+     dd0:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+     dd4:	8b 40 54             	mov    0x54(%rax),%eax
+     dd7:	48 98                	cltq   
+     dd9:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+     de0:	00 
+     de1:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+     de5:	48 01 d0             	add    %rdx,%rax
+     de8:	48 8b 10             	mov    (%rax),%rdx
+     deb:	48 8b 45 88          	mov    -0x78(%rbp),%rax
+     def:	48 89 d6             	mov    %rdx,%rsi
+     df2:	48 89 c7             	mov    %rax,%rdi
+     df5:	e8 00 00 00 00       	callq  dfa <(anonymous namespace)::tracer_state::tail_duplicate()+0x3c2>
+     dfa:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+     dfe:	8b 40 54             	mov    0x54(%rax),%eax
+     e01:	48 98                	cltq   
+     e03:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+     e0a:	00 
+     e0b:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+     e0f:	48 01 d0             	add    %rdx,%rax
+     e12:	48 c7 00 00 00 00 00 	movq   $0x0,(%rax)
+     e19:	c7 45 b4 01 00 00 00 	movl   $0x1,-0x4c(%rbp)
+     e20:	e9 3d 02 00 00       	jmpq   1062 <(anonymous namespace)::tracer_state::tail_duplicate()+0x62a>
+     e25:	8b 45 b4             	mov    -0x4c(%rbp),%eax
+     e28:	48 98                	cltq   
+     e2a:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+     e31:	00 
+     e32:	48 8b 45 98          	mov    -0x68(%rbp),%rax
+     e36:	48 01 d0             	add    %rdx,%rax
+     e39:	48 8b 00             	mov    (%rax),%rax
+     e3c:	48 89 45 a8          	mov    %rax,-0x58(%rbp)
+     e40:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+     e44:	8b 40 54             	mov    0x54(%rax),%eax
+     e47:	48 98                	cltq   
+     e49:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+     e50:	00 
+     e51:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+     e55:	48 01 d0             	add    %rdx,%rax
+     e58:	48 8b 00             	mov    (%rax),%rax
+     e5b:	48 85 c0             	test   %rax,%rax
+     e5e:	74 49                	je     ea9 <(anonymous namespace)::tracer_state::tail_duplicate()+0x471>
+     e60:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+     e64:	8b 40 54             	mov    0x54(%rax),%eax
+     e67:	48 98                	cltq   
+     e69:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+     e70:	00 
+     e71:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+     e75:	48 01 d0             	add    %rdx,%rax
+     e78:	48 8b 10             	mov    (%rax),%rdx
+     e7b:	48 8b 45 88          	mov    -0x78(%rbp),%rax
+     e7f:	48 89 d6             	mov    %rdx,%rsi
+     e82:	48 89 c7             	mov    %rax,%rdi
+     e85:	e8 00 00 00 00       	callq  e8a <(anonymous namespace)::tracer_state::tail_duplicate()+0x452>
+     e8a:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+     e8e:	8b 40 54             	mov    0x54(%rax),%eax
+     e91:	48 98                	cltq   
+     e93:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+     e9a:	00 
+     e9b:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+     e9f:	48 01 d0             	add    %rdx,%rax
+     ea2:	48 c7 00 00 00 00 00 	movq   $0x0,(%rax)
+     ea9:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+     ead:	8b 50 60             	mov    0x60(%rax),%edx
+     eb0:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+     eb4:	8b 40 54             	mov    0x54(%rax),%eax
+     eb7:	48 98                	cltq   
+     eb9:	48 8d 0c 85 00 00 00 	lea    0x0(,%rax,4),%rcx
+     ec0:	00 
+     ec1:	48 8b 45 90          	mov    -0x70(%rbp),%rax
+     ec5:	48 01 c8             	add    %rcx,%rax
+     ec8:	8b 00                	mov    (%rax),%eax
+     eca:	0f af c2             	imul   %edx,%eax
+     ecd:	48 98                	cltq   
+     ecf:	48 01 45 d8          	add    %rax,-0x28(%rbp)
+     ed3:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+     ed7:	48 8b 00             	mov    (%rax),%rax
+     eda:	48 89 c7             	mov    %rax,%rdi
+     edd:	e8 00 00 00 00       	callq  ee2 <(anonymous namespace)::tracer_state::tail_duplicate()+0x4aa>
+     ee2:	83 f8 01             	cmp    $0x1,%eax
+     ee5:	76 39                	jbe    f20 <(anonymous namespace)::tracer_state::tail_duplicate()+0x4e8>
+     ee7:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+     eeb:	48 89 c7             	mov    %rax,%rdi
+     eee:	e8 00 00 00 00       	callq  ef3 <(anonymous namespace)::tracer_state::tail_duplicate()+0x4bb>
+     ef3:	84 c0                	test   %al,%al
+     ef5:	74 29                	je     f20 <(anonymous namespace)::tracer_state::tail_duplicate()+0x4e8>
+     ef7:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # efe <(anonymous namespace)::tracer_state::tail_duplicate()+0x4c6>
+     efe:	48 8b 40 20          	mov    0x20(%rax),%rax
+     f02:	48 85 c0             	test   %rax,%rax
+     f05:	74 12                	je     f19 <(anonymous namespace)::tracer_state::tail_duplicate()+0x4e1>
+     f07:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+     f0b:	48 8b 40 18          	mov    0x18(%rax),%rax
+     f0f:	48 8b 40 08          	mov    0x8(%rax),%rax
+     f13:	48 3b 45 a8          	cmp    -0x58(%rbp),%rax
+     f17:	74 07                	je     f20 <(anonymous namespace)::tracer_state::tail_duplicate()+0x4e8>
+     f19:	b8 01 00 00 00       	mov    $0x1,%eax
+     f1e:	eb 05                	jmp    f25 <(anonymous namespace)::tracer_state::tail_duplicate()+0x4ed>
+     f20:	b8 00 00 00 00       	mov    $0x0,%eax
+     f25:	84 c0                	test   %al,%al
+     f27:	0f 84 0d 01 00 00    	je     103a <(anonymous namespace)::tracer_state::tail_duplicate()+0x602>
+     f2d:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+     f31:	8b 40 54             	mov    0x54(%rax),%eax
+     f34:	48 98                	cltq   
+     f36:	48 8d 14 85 00 00 00 	lea    0x0(,%rax,4),%rdx
+     f3d:	00 
+     f3e:	48 8b 45 90          	mov    -0x70(%rbp),%rax
+     f42:	48 01 d0             	add    %rdx,%rax
+     f45:	8b 00                	mov    (%rax),%eax
+     f47:	01 45 e8             	add    %eax,-0x18(%rbp)
+     f4a:	48 8b 55 a8          	mov    -0x58(%rbp),%rdx
+     f4e:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+     f52:	48 89 d6             	mov    %rdx,%rsi
+     f55:	48 89 c7             	mov    %rax,%rdi
+     f58:	e8 00 00 00 00       	callq  f5d <(anonymous namespace)::tracer_state::tail_duplicate()+0x525>
+     f5d:	48 89 85 70 ff ff ff 	mov    %rax,-0x90(%rbp)
+     f64:	48 8b 55 b8          	mov    -0x48(%rbp),%rdx
+     f68:	48 8b 8d 70 ff ff ff 	mov    -0x90(%rbp),%rcx
+     f6f:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+     f73:	48 89 ce             	mov    %rcx,%rsi
+     f76:	48 89 c7             	mov    %rax,%rdi
+     f79:	e8 00 00 00 00       	callq  f7e <(anonymous namespace)::tracer_state::tail_duplicate()+0x546>
+     f7e:	48 89 85 68 ff ff ff 	mov    %rax,-0x98(%rbp)
+     f85:	48 8b 85 70 ff ff ff 	mov    -0x90(%rbp),%rax
+     f8c:	48 89 c7             	mov    %rax,%rdi
+     f8f:	e8 00 00 00 00       	callq  f94 <(anonymous namespace)::tracer_state::tail_duplicate()+0x55c>
+     f94:	48 8d 85 68 ff ff ff 	lea    -0x98(%rbp),%rax
+     f9b:	ba 00 00 00 00       	mov    $0x0,%edx
+     fa0:	be 01 00 00 00       	mov    $0x1,%esi
+     fa5:	48 89 c7             	mov    %rax,%rdi
+     fa8:	e8 00 00 00 00       	callq  fad <(anonymous namespace)::tracer_state::tail_duplicate()+0x575>
+     fad:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+     fb1:	8b 40 54             	mov    0x54(%rax),%eax
+     fb4:	48 98                	cltq   
+     fb6:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+     fbd:	00 
+     fbe:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+     fc2:	48 8d 1c 02          	lea    (%rdx,%rax,1),%rbx
+     fc6:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+     fca:	8b 40 60             	mov    0x60(%rax),%eax
+     fcd:	f7 d8                	neg    %eax
+     fcf:	48 63 c8             	movslq %eax,%rcx
+     fd2:	48 8b 55 a8          	mov    -0x58(%rbp),%rdx
+     fd6:	48 8b 45 88          	mov    -0x78(%rbp),%rax
+     fda:	48 89 ce             	mov    %rcx,%rsi
+     fdd:	48 89 c7             	mov    %rax,%rdi
+     fe0:	e8 00 00 00 00       	callq  fe5 <(anonymous namespace)::tracer_state::tail_duplicate()+0x5ad>
+     fe5:	48 89 03             	mov    %rax,(%rbx)
+     fe8:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # fef <(anonymous namespace)::tracer_state::tail_duplicate()+0x5b7>
+     fef:	48 85 c0             	test   %rax,%rax
+     ff2:	74 37                	je     102b <(anonymous namespace)::tracer_state::tail_duplicate()+0x5f3>
+     ff4:	48 8b 85 68 ff ff ff 	mov    -0x98(%rbp),%rax
+     ffb:	8b 70 60             	mov    0x60(%rax),%esi
+     ffe:	48 8b 85 68 ff ff ff 	mov    -0x98(%rbp),%rax
+    1005:	8b 48 54             	mov    0x54(%rax),%ecx
+    1008:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+    100c:	8b 50 54             	mov    0x54(%rax),%edx
+    100f:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 1016 <(anonymous namespace)::tracer_state::tail_duplicate()+0x5de>
+    1016:	41 89 f0             	mov    %esi,%r8d
+    1019:	be 00 00 00 00       	mov    $0x0,%esi
+    101e:	48 89 c7             	mov    %rax,%rdi
+    1021:	b8 00 00 00 00       	mov    $0x0,%eax
+    1026:	e8 00 00 00 00       	callq  102b <(anonymous namespace)::tracer_state::tail_duplicate()+0x5f3>
+    102b:	48 8b 85 68 ff ff ff 	mov    -0x98(%rbp),%rax
+    1032:	48 89 45 a8          	mov    %rax,-0x58(%rbp)
+    1036:	c6 45 c7 01          	movb   $0x1,-0x39(%rbp)
+    103a:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+    103e:	48 89 c7             	mov    %rax,%rdi
+    1041:	e8 0e f3 ff ff       	callq  354 <(anonymous namespace)::tracer_state::mark_bb_seen(basic_block_def*)>
+    1046:	48 8b 45 a8          	mov    -0x58(%rbp),%rax
+    104a:	48 89 45 b8          	mov    %rax,-0x48(%rbp)
+    104e:	48 8b 45 b8          	mov    -0x48(%rbp),%rax
+    1052:	48 89 c7             	mov    %rax,%rdi
+    1055:	e8 88 f3 ff ff       	callq  3e2 <ignore_bb_p(basic_block_def const*)>
+    105a:	84 c0                	test   %al,%al
+    105c:	75 1a                	jne    1078 <(anonymous namespace)::tracer_state::tail_duplicate()+0x640>
+    105e:	83 45 b4 01          	addl   $0x1,-0x4c(%rbp)
+    1062:	8b 45 b4             	mov    -0x4c(%rbp),%eax
+    1065:	3b 85 7c ff ff ff    	cmp    -0x84(%rbp),%eax
+    106b:	0f 9c c0             	setl   %al
+    106e:	84 c0                	test   %al,%al
+    1070:	0f 85 af fd ff ff    	jne    e25 <(anonymous namespace)::tracer_state::tail_duplicate()+0x3ed>
+    1076:	eb 01                	jmp    1079 <(anonymous namespace)::tracer_state::tail_duplicate()+0x641>
+    1078:	90                   	nop
+    1079:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 1080 <(anonymous namespace)::tracer_state::tail_duplicate()+0x648>
+    1080:	48 85 c0             	test   %rax,%rax
+    1083:	74 38                	je     10bd <(anonymous namespace)::tracer_state::tail_duplicate()+0x685>
+    1085:	f2 48 0f 2a 45 d8    	cvtsi2sdq -0x28(%rbp),%xmm0
+    108b:	f2 0f 10 0d 00 00 00 	movsd  0x0(%rip),%xmm1        # 1093 <(anonymous namespace)::tracer_state::tail_duplicate()+0x65b>
+    1092:	00 
+    1093:	f2 0f 59 c1          	mulsd  %xmm1,%xmm0
+    1097:	f2 48 0f 2a 4d e0    	cvtsi2sdq -0x20(%rbp),%xmm1
+    109d:	f2 0f 5e c1          	divsd  %xmm1,%xmm0
+    10a1:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 10a8 <(anonymous namespace)::tracer_state::tail_duplicate()+0x670>
+    10a8:	be 00 00 00 00       	mov    $0x0,%esi
+    10ad:	48 89 c7             	mov    %rax,%rdi
+    10b0:	b8 01 00 00 00       	mov    $0x1,%eax
+    10b5:	e8 00 00 00 00       	callq  10ba <(anonymous namespace)::tracer_state::tail_duplicate()+0x682>
+    10ba:	eb 01                	jmp    10bd <(anonymous namespace)::tracer_state::tail_duplicate()+0x685>
+    10bc:	90                   	nop
+    10bd:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+    10c1:	48 3b 45 d0          	cmp    -0x30(%rbp),%rax
+    10c5:	7d 1f                	jge    10e6 <(anonymous namespace)::tracer_state::tail_duplicate()+0x6ae>
+    10c7:	8b 45 e8             	mov    -0x18(%rbp),%eax
+    10ca:	3b 45 80             	cmp    -0x80(%rbp),%eax
+    10cd:	7d 17                	jge    10e6 <(anonymous namespace)::tracer_state::tail_duplicate()+0x6ae>
+    10cf:	48 8b 45 88          	mov    -0x78(%rbp),%rax
+    10d3:	48 89 c7             	mov    %rax,%rdi
+    10d6:	e8 00 00 00 00       	callq  10db <(anonymous namespace)::tracer_state::tail_duplicate()+0x6a3>
+    10db:	85 c0                	test   %eax,%eax
+    10dd:	75 07                	jne    10e6 <(anonymous namespace)::tracer_state::tail_duplicate()+0x6ae>
+    10df:	b8 01 00 00 00       	mov    $0x1,%eax
+    10e4:	eb 05                	jmp    10eb <(anonymous namespace)::tracer_state::tail_duplicate()+0x6b3>
+    10e6:	b8 00 00 00 00       	mov    $0x0,%eax
+    10eb:	84 c0                	test   %al,%al
+    10ed:	0f 85 fd fb ff ff    	jne    cf0 <(anonymous namespace)::tracer_state::tail_duplicate()+0x2b8>
+    10f3:	eb 01                	jmp    10f6 <(anonymous namespace)::tracer_state::tail_duplicate()+0x6be>
+    10f5:	90                   	nop
+    10f6:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 10fd <(anonymous namespace)::tracer_state::tail_duplicate()+0x6c5>
+    10fd:	48 85 c0             	test   %rax,%rax
+    1100:	74 2c                	je     112e <(anonymous namespace)::tracer_state::tail_duplicate()+0x6f6>
+    1102:	8b 45 e8             	mov    -0x18(%rbp),%eax
+    1105:	6b c0 64             	imul   $0x64,%eax,%eax
+    1108:	89 c2                	mov    %eax,%edx
+    110a:	c1 fa 1f             	sar    $0x1f,%edx
+    110d:	f7 7d ec             	idivl  -0x14(%rbp)
+    1110:	89 c1                	mov    %eax,%ecx
+    1112:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 1119 <(anonymous namespace)::tracer_state::tail_duplicate()+0x6e1>
+    1119:	8b 55 e8             	mov    -0x18(%rbp),%edx
+    111c:	be 00 00 00 00       	mov    $0x0,%esi
+    1121:	48 89 c7             	mov    %rax,%rdi
+    1124:	b8 00 00 00 00       	mov    $0x0,%eax
+    1129:	e8 00 00 00 00       	callq  112e <(anonymous namespace)::tracer_state::tail_duplicate()+0x6f6>
+    112e:	e8 00 00 00 00       	callq  1133 <(anonymous namespace)::tracer_state::tail_duplicate()+0x6fb>
+    1133:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 113a <(anonymous namespace)::tracer_state::tail_duplicate()+0x702>
+    113a:	48 89 c7             	mov    %rax,%rdi
+    113d:	e8 00 00 00 00       	callq  1142 <(anonymous namespace)::tracer_state::tail_duplicate()+0x70a>
+    1142:	48 8b 45 a0          	mov    -0x60(%rbp),%rax
+    1146:	48 89 c7             	mov    %rax,%rdi
+    1149:	e8 00 00 00 00       	callq  114e <(anonymous namespace)::tracer_state::tail_duplicate()+0x716>
+    114e:	48 8b 45 98          	mov    -0x68(%rbp),%rax
+    1152:	48 89 c7             	mov    %rax,%rdi
+    1155:	e8 00 00 00 00       	callq  115a <(anonymous namespace)::tracer_state::tail_duplicate()+0x722>
+    115a:	48 8b 45 90          	mov    -0x70(%rbp),%rax
+    115e:	48 89 c7             	mov    %rax,%rdi
+    1161:	e8 00 00 00 00       	callq  1166 <(anonymous namespace)::tracer_state::tail_duplicate()+0x72e>
+    1166:	48 8b 45 88          	mov    -0x78(%rbp),%rax
+    116a:	48 89 c7             	mov    %rax,%rdi
+    116d:	e8 00 00 00 00       	callq  1172 <(anonymous namespace)::tracer_state::tail_duplicate()+0x73a>
+    1172:	0f b6 45 c7          	movzbl -0x39(%rbp),%eax
+    1176:	48 81 c4 98 00 00 00 	add    $0x98,%rsp
+    117d:	5b                   	pop    %rbx
+    117e:	5d                   	pop    %rbp
+    117f:	c3                   	retq   
+
+0000000000001180 <tracer()>:
+    1180:	55                   	push   %rbp
+    1181:	48 89 e5             	mov    %rsp,%rbp
+    1184:	48 83 ec 10          	sub    $0x10,%rsp
+    1188:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 118f <tracer()+0xf>
+    118f:	48 8b 40 08          	mov    0x8(%rax),%rax
+    1193:	8b 40 18             	mov    0x18(%rax),%eax
+    1196:	83 f8 03             	cmp    $0x3,%eax
+    1199:	7f 0a                	jg     11a5 <tracer()+0x25>
+    119b:	b8 00 00 00 00       	mov    $0x0,%eax
+    11a0:	e9 8f 00 00 00       	jmpq   1234 <tracer()+0xb4>
+    11a5:	e8 00 00 00 00       	callq  11aa <tracer()+0x2a>
+    11aa:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 11b1 <tracer()+0x31>
+    11b1:	48 85 c0             	test   %rax,%rax
+    11b4:	74 17                	je     11cd <tracer()+0x4d>
+    11b6:	8b 15 00 00 00 00    	mov    0x0(%rip),%edx        # 11bc <tracer()+0x3c>
+    11bc:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 11c3 <tracer()+0x43>
+    11c3:	89 d6                	mov    %edx,%esi
+    11c5:	48 89 c7             	mov    %rax,%rdi
+    11c8:	e8 00 00 00 00       	callq  11cd <tracer()+0x4d>
+    11cd:	e8 66 f8 ff ff       	callq  a38 <(anonymous namespace)::tracer_state::tail_duplicate()>
+    11d2:	88 45 ff             	mov    %al,-0x1(%rbp)
+    11d5:	80 7d ff 00          	cmpb   $0x0,-0x1(%rbp)
+    11d9:	74 24                	je     11ff <tracer()+0x7f>
+    11db:	bf 01 00 00 00       	mov    $0x1,%edi
+    11e0:	e8 00 00 00 00       	callq  11e5 <tracer()+0x65>
+    11e5:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 11ec <tracer()+0x6c>
+    11ec:	48 8b 40 20          	mov    0x20(%rax),%rax
+    11f0:	48 85 c0             	test   %rax,%rax
+    11f3:	74 0a                	je     11ff <tracer()+0x7f>
+    11f5:	bf 40 00 00 00       	mov    $0x40,%edi
+    11fa:	e8 2e f1 ff ff       	callq  32d <loops_state_set(unsigned int)>
+    11ff:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 1206 <tracer()+0x86>
+    1206:	48 85 c0             	test   %rax,%rax
+    1209:	74 17                	je     1222 <tracer()+0xa2>
+    120b:	8b 15 00 00 00 00    	mov    0x0(%rip),%edx        # 1211 <tracer()+0x91>
+    1211:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 1218 <tracer()+0x98>
+    1218:	89 d6                	mov    %edx,%esi
+    121a:	48 89 c7             	mov    %rax,%rdi
+    121d:	e8 00 00 00 00       	callq  1222 <tracer()+0xa2>
+    1222:	80 7d ff 00          	cmpb   $0x0,-0x1(%rbp)
+    1226:	74 07                	je     122f <tracer()+0xaf>
+    1228:	b8 20 00 00 00       	mov    $0x20,%eax
+    122d:	eb 05                	jmp    1234 <tracer()+0xb4>
+    122f:	b8 00 00 00 00       	mov    $0x0,%eax
+    1234:	c9                   	leaveq 
+    1235:	c3                   	retq   
+
+0000000000001236 <gate_tracer()>:
+    1236:	55                   	push   %rbp
+    1237:	48 89 e5             	mov    %rsp,%rbp
+    123a:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 1240 <gate_tracer()+0xa>
+    1240:	85 c0                	test   %eax,%eax
+    1242:	7e 1b                	jle    125f <gate_tracer()+0x29>
+    1244:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 124a <gate_tracer()+0x14>
+    124a:	85 c0                	test   %eax,%eax
+    124c:	74 11                	je     125f <gate_tracer()+0x29>
+    124e:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 1254 <gate_tracer()+0x1e>
+    1254:	85 c0                	test   %eax,%eax
+    1256:	74 07                	je     125f <gate_tracer()+0x29>
+    1258:	b8 01 00 00 00       	mov    $0x1,%eax
+    125d:	eb 05                	jmp    1264 <gate_tracer()+0x2e>
+    125f:	b8 00 00 00 00       	mov    $0x0,%eax
+    1264:	5d                   	pop    %rbp
+    1265:	c3                   	retq   
+
+Disassembly of section .text._Z12sbitmap_freeP17simple_bitmap_def:
+
+0000000000000000 <sbitmap_free(simple_bitmap_def*)>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 83 ec 10          	sub    $0x10,%rsp
+   8:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+   c:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  10:	48 8b 00             	mov    (%rax),%rax
+  13:	48 89 c7             	mov    %rax,%rdi
+  16:	e8 00 00 00 00       	callq  1b <sbitmap_free(simple_bitmap_def*)+0x1b>
+  1b:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  1f:	48 89 c7             	mov    %rax,%rdi
+  22:	e8 00 00 00 00       	callq  27 <sbitmap_free(simple_bitmap_def*)+0x27>
+  27:	c9                   	leaveq 
+  28:	c3                   	retq   
+
+Disassembly of section .text._Z15vec_safe_lengthIP8edge_def5va_gcEjPK3vecIT_T0_8vl_embedE:
+
+0000000000000000 <unsigned int vec_safe_length<edge_def*, va_gc>(vec<edge_def*, va_gc, vl_embed> const*)>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 83 ec 10          	sub    $0x10,%rsp
+   8:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+   c:	48 83 7d f8 00       	cmpq   $0x0,-0x8(%rbp)
+  11:	74 0e                	je     21 <unsigned int vec_safe_length<edge_def*, va_gc>(vec<edge_def*, va_gc, vl_embed> const*)+0x21>
+  13:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  17:	48 89 c7             	mov    %rax,%rdi
+  1a:	e8 00 00 00 00       	callq  1f <unsigned int vec_safe_length<edge_def*, va_gc>(vec<edge_def*, va_gc, vl_embed> const*)+0x1f>
+  1f:	eb 05                	jmp    26 <unsigned int vec_safe_length<edge_def*, va_gc>(vec<edge_def*, va_gc, vl_embed> const*)+0x26>
+  21:	b8 00 00 00 00       	mov    $0x0,%eax
+  26:	c9                   	leaveq 
+  27:	c3                   	retq   
+
+Disassembly of section .text._ZN3vecIP8edge_def5va_gc8vl_embedEixEj:
+
+0000000000000000 <vec<edge_def*, va_gc, vl_embed>::operator[](unsigned int)>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 83 ec 10          	sub    $0x10,%rsp
+   8:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+   c:	89 75 f4             	mov    %esi,-0xc(%rbp)
+   f:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  13:	8b 40 04             	mov    0x4(%rax),%eax
+  16:	3b 45 f4             	cmp    -0xc(%rbp),%eax
+  19:	77 14                	ja     2f <vec<edge_def*, va_gc, vl_embed>::operator[](unsigned int)+0x2f>
+  1b:	ba 00 00 00 00       	mov    $0x0,%edx
+  20:	be 2f 03 00 00       	mov    $0x32f,%esi
+  25:	bf 00 00 00 00       	mov    $0x0,%edi
+  2a:	e8 00 00 00 00       	callq  2f <vec<edge_def*, va_gc, vl_embed>::operator[](unsigned int)+0x2f>
+  2f:	8b 45 f4             	mov    -0xc(%rbp),%eax
+  32:	48 8d 14 c5 00 00 00 	lea    0x0(,%rax,8),%rdx
+  39:	00 
+  3a:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  3e:	48 01 d0             	add    %rdx,%rax
+  41:	48 83 c0 08          	add    $0x8,%rax
+  45:	c9                   	leaveq 
+  46:	c3                   	retq   
+
+Disassembly of section .text._ZNK3vecIP8edge_def5va_gc8vl_embedE6lengthEv:
+
+0000000000000000 <vec<edge_def*, va_gc, vl_embed>::length() const>:
+   0:	55                   	push   %rbp
+   1:	48 89 e5             	mov    %rsp,%rbp
+   4:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+   8:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+   c:	8b 40 04             	mov    0x4(%rax),%eax
+   f:	5d                   	pop    %rbp
+  10:	c3                   	retq   

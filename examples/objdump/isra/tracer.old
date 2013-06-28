@@ -1,0 +1,698 @@
+
+gcc-build/test/control/build/gcc/tracer.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <gate_tracer()>:
+   0:	8b 0d 00 00 00 00    	mov    0x0(%rip),%ecx        # 6 <gate_tracer()+0x6>
+   6:	31 c0                	xor    %eax,%eax
+   8:	85 c9                	test   %ecx,%ecx
+   a:	7e 15                	jle    21 <gate_tracer()+0x21>
+   c:	8b 15 00 00 00 00    	mov    0x0(%rip),%edx        # 12 <gate_tracer()+0x12>
+  12:	85 d2                	test   %edx,%edx
+  14:	74 0b                	je     21 <gate_tracer()+0x21>
+  16:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 1c <gate_tracer()+0x1c>
+  1c:	85 c0                	test   %eax,%eax
+  1e:	0f 95 c0             	setne  %al
+  21:	f3 c3                	repz retq 
+  23:	66 66 66 66 2e 0f 1f 	data32 data32 data32 nopw %cs:0x0(%rax,%rax,1)
+  2a:	84 00 00 00 00 00 
+
+0000000000000030 <better_p(edge_def const*, edge_def const*)>:
+  30:	48 8b 46 30          	mov    0x30(%rsi),%rax
+  34:	48 39 47 30          	cmp    %rax,0x30(%rdi)
+  38:	74 06                	je     40 <better_p(edge_def const*, edge_def const*)+0x10>
+  3a:	0f 9f c0             	setg   %al
+  3d:	c3                   	retq   
+  3e:	66 90                	xchg   %ax,%ax
+  40:	4c 8b 07             	mov    (%rdi),%r8
+  43:	48 8b 0e             	mov    (%rsi),%rcx
+  46:	41 8b 50 60          	mov    0x60(%r8),%edx
+  4a:	8b 41 60             	mov    0x60(%rcx),%eax
+  4d:	0f af 57 2c          	imul   0x2c(%rdi),%edx
+  51:	0f af 46 2c          	imul   0x2c(%rsi),%eax
+  55:	39 c2                	cmp    %eax,%edx
+  57:	75 e1                	jne    3a <better_p(edge_def const*, edge_def const*)+0xa>
+  59:	49 39 c8             	cmp    %rcx,%r8
+  5c:	74 12                	je     70 <better_p(edge_def const*, edge_def const*)+0x40>
+  5e:	8b 41 54             	mov    0x54(%rcx),%eax
+  61:	41 39 40 54          	cmp    %eax,0x54(%r8)
+  65:	0f 9f c0             	setg   %al
+  68:	c3                   	retq   
+  69:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+  70:	48 8b 57 08          	mov    0x8(%rdi),%rdx
+  74:	48 8b 46 08          	mov    0x8(%rsi),%rax
+  78:	8b 40 54             	mov    0x54(%rax),%eax
+  7b:	39 42 54             	cmp    %eax,0x54(%rdx)
+  7e:	eb ba                	jmp    3a <better_p(edge_def const*, edge_def const*)+0xa>
+
+0000000000000080 <ignore_bb_p(basic_block_def const*)>:
+  80:	53                   	push   %rbx
+  81:	83 7f 54 01          	cmpl   $0x1,0x54(%rdi)
+  85:	48 89 fb             	mov    %rdi,%rbx
+  88:	7e 09                	jle    93 <ignore_bb_p(basic_block_def const*)+0x13>
+  8a:	e8 00 00 00 00       	callq  8f <ignore_bb_p(basic_block_def const*)+0xf>
+  8f:	84 c0                	test   %al,%al
+  91:	74 0d                	je     a0 <ignore_bb_p(basic_block_def const*)+0x20>
+  93:	b8 01 00 00 00       	mov    $0x1,%eax
+  98:	5b                   	pop    %rbx
+  99:	c3                   	retq   
+  9a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  a0:	48 89 df             	mov    %rbx,%rdi
+  a3:	e8 00 00 00 00       	callq  a8 <ignore_bb_p(basic_block_def const*)+0x28>
+  a8:	48 85 c0             	test   %rax,%rax
+  ab:	74 0b                	je     b8 <ignore_bb_p(basic_block_def const*)+0x38>
+  ad:	80 38 09             	cmpb   $0x9,(%rax)
+  b0:	5b                   	pop    %rbx
+  b1:	0f 94 c0             	sete   %al
+  b4:	c3                   	retq   
+  b5:	0f 1f 00             	nopl   (%rax)
+  b8:	31 c0                	xor    %eax,%eax
+  ba:	5b                   	pop    %rbx
+  bb:	c3                   	retq   
+  bc:	0f 1f 40 00          	nopl   0x0(%rax)
+
+00000000000000c0 <find_best_predecessor(basic_block_def*)>:
+  c0:	41 56                	push   %r14
+  c2:	49 89 fe             	mov    %rdi,%r14
+  c5:	41 55                	push   %r13
+  c7:	41 54                	push   %r12
+  c9:	55                   	push   %rbp
+  ca:	31 ed                	xor    %ebp,%ebp
+  cc:	53                   	push   %rbx
+  cd:	31 db                	xor    %ebx,%ebx
+  cf:	4c 8b 27             	mov    (%rdi),%r12
+  d2:	eb 2d                	jmp    101 <find_best_predecessor(basic_block_def*)+0x41>
+  d4:	0f 1f 40 00          	nopl   0x0(%rax)
+  d8:	41 8b 44 24 04       	mov    0x4(%r12),%eax
+  dd:	39 d8                	cmp    %ebx,%eax
+  df:	74 2f                	je     110 <find_best_predecessor(basic_block_def*)+0x50>
+  e1:	89 d8                	mov    %ebx,%eax
+  e3:	48 85 ed             	test   %rbp,%rbp
+  e6:	4d 8b 6c c4 08       	mov    0x8(%r12,%rax,8),%r13
+  eb:	74 43                	je     130 <find_best_predecessor(basic_block_def*)+0x70>
+  ed:	48 89 ee             	mov    %rbp,%rsi
+  f0:	4c 89 ef             	mov    %r13,%rdi
+  f3:	e8 38 ff ff ff       	callq  30 <better_p(edge_def const*, edge_def const*)>
+  f8:	84 c0                	test   %al,%al
+  fa:	49 0f 45 ed          	cmovne %r13,%rbp
+  fe:	83 c3 01             	add    $0x1,%ebx
+ 101:	4d 85 e4             	test   %r12,%r12
+ 104:	75 d2                	jne    d8 <find_best_predecessor(basic_block_def*)+0x18>
+ 106:	31 c0                	xor    %eax,%eax
+ 108:	39 d8                	cmp    %ebx,%eax
+ 10a:	75 d5                	jne    e1 <find_best_predecessor(basic_block_def*)+0x21>
+ 10c:	0f 1f 40 00          	nopl   0x0(%rax)
+ 110:	48 85 ed             	test   %rbp,%rbp
+ 113:	74 0d                	je     122 <find_best_predecessor(basic_block_def*)+0x62>
+ 115:	48 8b 7d 00          	mov    0x0(%rbp),%rdi
+ 119:	e8 62 ff ff ff       	callq  80 <ignore_bb_p(basic_block_def const*)>
+ 11e:	84 c0                	test   %al,%al
+ 120:	74 16                	je     138 <find_best_predecessor(basic_block_def*)+0x78>
+ 122:	5b                   	pop    %rbx
+ 123:	5d                   	pop    %rbp
+ 124:	41 5c                	pop    %r12
+ 126:	41 5d                	pop    %r13
+ 128:	31 c0                	xor    %eax,%eax
+ 12a:	41 5e                	pop    %r14
+ 12c:	c3                   	retq   
+ 12d:	0f 1f 00             	nopl   (%rax)
+ 130:	4c 89 ed             	mov    %r13,%rbp
+ 133:	eb c9                	jmp    fe <find_best_predecessor(basic_block_def*)+0x3e>
+ 135:	0f 1f 00             	nopl   (%rax)
+ 138:	48 8b 45 00          	mov    0x0(%rbp),%rax
+ 13c:	ba ad 8b db 68       	mov    $0x68db8bad,%edx
+ 141:	5b                   	pop    %rbx
+ 142:	8b 40 60             	mov    0x60(%rax),%eax
+ 145:	0f af 45 2c          	imul   0x2c(%rbp),%eax
+ 149:	8d 88 88 13 00 00    	lea    0x1388(%rax),%ecx
+ 14f:	89 c8                	mov    %ecx,%eax
+ 151:	c1 f9 1f             	sar    $0x1f,%ecx
+ 154:	f7 ea                	imul   %edx
+ 156:	31 c0                	xor    %eax,%eax
+ 158:	c1 fa 0c             	sar    $0xc,%edx
+ 15b:	29 ca                	sub    %ecx,%edx
+ 15d:	41 8b 4e 60          	mov    0x60(%r14),%ecx
+ 161:	0f af 0d 00 00 00 00 	imul   0x0(%rip),%ecx        # 168 <find_best_predecessor(basic_block_def*)+0xa8>
+ 168:	69 d2 10 27 00 00    	imul   $0x2710,%edx,%edx
+ 16e:	39 ca                	cmp    %ecx,%edx
+ 170:	48 0f 4d c5          	cmovge %rbp,%rax
+ 174:	5d                   	pop    %rbp
+ 175:	41 5c                	pop    %r12
+ 177:	41 5d                	pop    %r13
+ 179:	41 5e                	pop    %r14
+ 17b:	c3                   	retq   
+ 17c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000000180 <find_best_successor(basic_block_def*)>:
+ 180:	41 55                	push   %r13
+ 182:	41 54                	push   %r12
+ 184:	55                   	push   %rbp
+ 185:	31 ed                	xor    %ebp,%ebp
+ 187:	53                   	push   %rbx
+ 188:	31 db                	xor    %ebx,%ebx
+ 18a:	48 83 ec 08          	sub    $0x8,%rsp
+ 18e:	4c 8b 67 08          	mov    0x8(%rdi),%r12
+ 192:	eb 2d                	jmp    1c1 <find_best_successor(basic_block_def*)+0x41>
+ 194:	0f 1f 40 00          	nopl   0x0(%rax)
+ 198:	41 8b 44 24 04       	mov    0x4(%r12),%eax
+ 19d:	39 d8                	cmp    %ebx,%eax
+ 19f:	74 2f                	je     1d0 <find_best_successor(basic_block_def*)+0x50>
+ 1a1:	89 d8                	mov    %ebx,%eax
+ 1a3:	48 85 ed             	test   %rbp,%rbp
+ 1a6:	4d 8b 6c c4 08       	mov    0x8(%r12,%rax,8),%r13
+ 1ab:	74 43                	je     1f0 <find_best_successor(basic_block_def*)+0x70>
+ 1ad:	48 89 ee             	mov    %rbp,%rsi
+ 1b0:	4c 89 ef             	mov    %r13,%rdi
+ 1b3:	e8 78 fe ff ff       	callq  30 <better_p(edge_def const*, edge_def const*)>
+ 1b8:	84 c0                	test   %al,%al
+ 1ba:	49 0f 45 ed          	cmovne %r13,%rbp
+ 1be:	83 c3 01             	add    $0x1,%ebx
+ 1c1:	4d 85 e4             	test   %r12,%r12
+ 1c4:	75 d2                	jne    198 <find_best_successor(basic_block_def*)+0x18>
+ 1c6:	31 c0                	xor    %eax,%eax
+ 1c8:	39 d8                	cmp    %ebx,%eax
+ 1ca:	75 d5                	jne    1a1 <find_best_successor(basic_block_def*)+0x21>
+ 1cc:	0f 1f 40 00          	nopl   0x0(%rax)
+ 1d0:	48 85 ed             	test   %rbp,%rbp
+ 1d3:	74 0d                	je     1e2 <find_best_successor(basic_block_def*)+0x62>
+ 1d5:	48 8b 7d 08          	mov    0x8(%rbp),%rdi
+ 1d9:	e8 a2 fe ff ff       	callq  80 <ignore_bb_p(basic_block_def const*)>
+ 1de:	84 c0                	test   %al,%al
+ 1e0:	74 16                	je     1f8 <find_best_successor(basic_block_def*)+0x78>
+ 1e2:	48 83 c4 08          	add    $0x8,%rsp
+ 1e6:	31 c0                	xor    %eax,%eax
+ 1e8:	5b                   	pop    %rbx
+ 1e9:	5d                   	pop    %rbp
+ 1ea:	41 5c                	pop    %r12
+ 1ec:	41 5d                	pop    %r13
+ 1ee:	c3                   	retq   
+ 1ef:	90                   	nop
+ 1f0:	4c 89 ed             	mov    %r13,%rbp
+ 1f3:	eb c9                	jmp    1be <find_best_successor(basic_block_def*)+0x3e>
+ 1f5:	0f 1f 00             	nopl   (%rax)
+ 1f8:	31 c0                	xor    %eax,%eax
+ 1fa:	8b 15 00 00 00 00    	mov    0x0(%rip),%edx        # 200 <find_best_successor(basic_block_def*)+0x80>
+ 200:	39 55 2c             	cmp    %edx,0x2c(%rbp)
+ 203:	48 0f 4f c5          	cmovg  %rbp,%rax
+ 207:	48 83 c4 08          	add    $0x8,%rsp
+ 20b:	5b                   	pop    %rbx
+ 20c:	5d                   	pop    %rbp
+ 20d:	41 5c                	pop    %r12
+ 20f:	41 5d                	pop    %r13
+ 211:	c3                   	retq   
+ 212:	66 66 66 66 66 2e 0f 	data32 data32 data32 data32 nopw %cs:0x0(%rax,%rax,1)
+ 219:	1f 84 00 00 00 00 00 
+
+0000000000000220 <tracer()>:
+ 220:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 227 <tracer()+0x7>
+ 227:	48 8b 50 08          	mov    0x8(%rax),%rdx
+ 22b:	31 c0                	xor    %eax,%eax
+ 22d:	83 7a 18 03          	cmpl   $0x3,0x18(%rdx)
+ 231:	7f 02                	jg     235 <tracer()+0x15>
+ 233:	f3 c3                	repz retq 
+ 235:	41 57                	push   %r15
+ 237:	41 56                	push   %r14
+ 239:	41 55                	push   %r13
+ 23b:	41 54                	push   %r12
+ 23d:	55                   	push   %rbp
+ 23e:	53                   	push   %rbx
+ 23f:	48 83 ec 68          	sub    $0x68,%rsp
+ 243:	e8 00 00 00 00       	callq  248 <tracer()+0x28>
+ 248:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 24f <tracer()+0x2f>
+ 24f:	48 85 ff             	test   %rdi,%rdi
+ 252:	74 0b                	je     25f <tracer()+0x3f>
+ 254:	8b 35 00 00 00 00    	mov    0x0(%rip),%esi        # 25a <tracer()+0x3a>
+ 25a:	e8 00 00 00 00       	callq  25f <tracer()+0x3f>
+ 25f:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 266 <tracer()+0x46>
+ 266:	be 08 00 00 00       	mov    $0x8,%esi
+ 26b:	48 8b 40 08          	mov    0x8(%rax),%rax
+ 26f:	48 63 78 20          	movslq 0x20(%rax),%rdi
+ 273:	e8 00 00 00 00       	callq  278 <tracer()+0x58>
+ 278:	49 89 c4             	mov    %rax,%r12
+ 27b:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 282 <tracer()+0x62>
+ 282:	48 8b 40 08          	mov    0x8(%rax),%rax
+ 286:	48 63 78 18          	movslq 0x18(%rax),%rdi
+ 28a:	48 c1 e7 03          	shl    $0x3,%rdi
+ 28e:	e8 00 00 00 00       	callq  293 <tracer()+0x73>
+ 293:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+ 298:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 29f <tracer()+0x7f>
+ 29f:	48 8b 40 08          	mov    0x8(%rax),%rax
+ 2a3:	48 63 78 20          	movslq 0x20(%rax),%rdi
+ 2a7:	48 c1 e7 02          	shl    $0x2,%rdi
+ 2ab:	e8 00 00 00 00       	callq  2b0 <tracer()+0x90>
+ 2b0:	49 89 c6             	mov    %rax,%r14
+ 2b3:	e8 00 00 00 00       	callq  2b8 <tracer()+0x98>
+ 2b8:	48 89 04 24          	mov    %rax,(%rsp)
+ 2bc:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 2c3 <tracer()+0xa3>
+ 2c3:	48 8b 40 08          	mov    0x8(%rax),%rax
+ 2c7:	8b 78 20             	mov    0x20(%rax),%edi
+ 2ca:	01 ff                	add    %edi,%edi
+ 2cc:	e8 00 00 00 00       	callq  2d1 <tracer()+0xb1>
+ 2d1:	48 89 c7             	mov    %rax,%rdi
+ 2d4:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # 2db <tracer()+0xbb>
+ 2db:	e8 00 00 00 00       	callq  2e0 <tracer()+0xc0>
+ 2e0:	e8 00 00 00 00       	callq  2e5 <tracer()+0xc5>
+ 2e5:	48 8b 15 00 00 00 00 	mov    0x0(%rip),%rdx        # 2ec <tracer()+0xcc>
+ 2ec:	48 8b 0d 00 00 00 00 	mov    0x0(%rip),%rcx        # 2f3 <tracer()+0xd3>
+ 2f3:	48 85 d2             	test   %rdx,%rdx
+ 2f6:	74 0e                	je     306 <tracer()+0xe6>
+ 2f8:	8b 1d 00 00 00 00    	mov    0x0(%rip),%ebx        # 2fe <tracer()+0xde>
+ 2fe:	85 db                	test   %ebx,%ebx
+ 300:	0f 85 80 02 00 00    	jne    586 <tracer()+0x366>
+ 306:	8b 81 f4 00 00 00    	mov    0xf4(%rcx),%eax
+ 30c:	41 ba 64 00 00 00    	mov    $0x64,%r10d
+ 312:	41 bb 64 00 00 00    	mov    $0x64,%r11d
+ 318:	41 0f af c2          	imul   %r10d,%eax
+ 31c:	89 05 00 00 00 00    	mov    %eax,0x0(%rip)        # 322 <tracer()+0x102>
+ 322:	8b 81 ec 00 00 00    	mov    0xec(%rcx),%eax
+ 328:	41 0f af c3          	imul   %r11d,%eax
+ 32c:	89 05 00 00 00 00    	mov    %eax,0x0(%rip)        # 332 <tracer()+0x112>
+ 332:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 339 <tracer()+0x119>
+ 339:	48 8b 40 08          	mov    0x8(%rax),%rax
+ 33d:	48 8b 30             	mov    (%rax),%rsi
+ 340:	48 8b 6e 38          	mov    0x38(%rsi),%rbp
+ 344:	48 3b 68 08          	cmp    0x8(%rax),%rbp
+ 348:	0f 84 69 02 00 00    	je     5b7 <tracer()+0x397>
+ 34e:	45 31 ff             	xor    %r15d,%r15d
+ 351:	45 31 ed             	xor    %r13d,%r13d
+ 354:	4c 89 64 24 08       	mov    %r12,0x8(%rsp)
+ 359:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+ 360:	f6 45 51 02          	testb  $0x2,0x51(%rbp)
+ 364:	48 8d 45 40          	lea    0x40(%rbp),%rax
+ 368:	b9 00 00 00 00       	mov    $0x0,%ecx
+ 36d:	48 0f 45 c1          	cmovne %rcx,%rax
+ 371:	31 db                	xor    %ebx,%ebx
+ 373:	4c 8b 20             	mov    (%rax),%r12
+ 376:	4d 85 e4             	test   %r12,%r12
+ 379:	74 1e                	je     399 <tracer()+0x179>
+ 37b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+ 380:	4c 89 e7             	mov    %r12,%rdi
+ 383:	be 00 00 00 00       	mov    $0x0,%esi
+ 388:	e8 00 00 00 00       	callq  38d <tracer()+0x16d>
+ 38d:	4d 8b 64 24 18       	mov    0x18(%r12),%r12
+ 392:	01 c3                	add    %eax,%ebx
+ 394:	4d 85 e4             	test   %r12,%r12
+ 397:	75 e7                	jne    380 <tracer()+0x160>
+ 399:	48 89 ef             	mov    %rbp,%rdi
+ 39c:	e8 df fc ff ff       	callq  80 <ignore_bb_p(basic_block_def const*)>
+ 3a1:	84 c0                	test   %al,%al
+ 3a3:	0f 84 a7 01 00 00    	je     550 <tracer()+0x330>
+ 3a9:	48 63 45 54          	movslq 0x54(%rbp),%rax
+ 3ad:	41 01 dd             	add    %ebx,%r13d
+ 3b0:	41 89 1c 86          	mov    %ebx,(%r14,%rax,4)
+ 3b4:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 3bb <tracer()+0x19b>
+ 3bb:	0f af 5d 60          	imul   0x60(%rbp),%ebx
+ 3bf:	48 8b 6d 38          	mov    0x38(%rbp),%rbp
+ 3c3:	48 8b 40 08          	mov    0x8(%rax),%rax
+ 3c7:	48 63 db             	movslq %ebx,%rbx
+ 3ca:	49 01 df             	add    %rbx,%r15
+ 3cd:	48 3b 68 08          	cmp    0x8(%rax),%rbp
+ 3d1:	75 8d                	jne    360 <tracer()+0x140>
+ 3d3:	4c 8b 64 24 08       	mov    0x8(%rsp),%r12
+ 3d8:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 3df <tracer()+0x1bf>
+ 3df:	48 8b 0d 00 00 00 00 	mov    0x0(%rip),%rcx        # 3e6 <tracer()+0x1c6>
+ 3e6:	4c 89 7c 24 38       	mov    %r15,0x38(%rsp)
+ 3eb:	48 85 c0             	test   %rax,%rax
+ 3ee:	74 10                	je     400 <tracer()+0x1e0>
+ 3f0:	44 8b 0d 00 00 00 00 	mov    0x0(%rip),%r9d        # 3f7 <tracer()+0x1d7>
+ 3f7:	45 85 c9             	test   %r9d,%r9d
+ 3fa:	0f 85 7a 01 00 00    	jne    57a <tracer()+0x35a>
+ 400:	48 63 b1 e4 00 00 00 	movslq 0xe4(%rcx),%rsi
+ 407:	48 0f af 74 24 38    	imul   0x38(%rsp),%rsi
+ 40d:	48 ba 0b d7 a3 70 3d 	mov    $0xa3d70a3d70a3d70b,%rdx
+ 414:	0a d7 a3 
+ 417:	c6 44 24 20 00       	movb   $0x0,0x20(%rsp)
+ 41c:	45 31 ff             	xor    %r15d,%r15d
+ 41f:	c7 44 24 18 00 00 00 	movl   $0x0,0x18(%rsp)
+ 426:	00 
+ 427:	44 89 6c 24 14       	mov    %r13d,0x14(%rsp)
+ 42c:	48 83 c6 32          	add    $0x32,%rsi
+ 430:	48 89 f0             	mov    %rsi,%rax
+ 433:	48 f7 ea             	imul   %rdx
+ 436:	48 8d 04 32          	lea    (%rdx,%rsi,1),%rax
+ 43a:	ba 1f 85 eb 51       	mov    $0x51eb851f,%edx
+ 43f:	48 c1 fe 3f          	sar    $0x3f,%rsi
+ 443:	48 89 44 24 30       	mov    %rax,0x30(%rsp)
+ 448:	8b 81 e8 00 00 00    	mov    0xe8(%rcx),%eax
+ 44e:	48 c1 7c 24 30 06    	sarq   $0x6,0x30(%rsp)
+ 454:	48 29 74 24 30       	sub    %rsi,0x30(%rsp)
+ 459:	41 0f af c5          	imul   %r13d,%eax
+ 45d:	89 c1                	mov    %eax,%ecx
+ 45f:	83 c1 32             	add    $0x32,%ecx
+ 462:	89 c8                	mov    %ecx,%eax
+ 464:	c1 f9 1f             	sar    $0x1f,%ecx
+ 467:	f7 ea                	imul   %edx
+ 469:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+ 46e:	89 54 24 1c          	mov    %edx,0x1c(%rsp)
+ 472:	c1 7c 24 1c 05       	sarl   $0x5,0x1c(%rsp)
+ 477:	29 4c 24 1c          	sub    %ecx,0x1c(%rsp)
+ 47b:	48 8d 48 08          	lea    0x8(%rax),%rcx
+ 47f:	48 83 c0 10          	add    $0x10,%rax
+ 483:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+ 488:	48 89 4c 24 40       	mov    %rcx,0x40(%rsp)
+ 48d:	8b 44 24 18          	mov    0x18(%rsp),%eax
+ 491:	39 44 24 1c          	cmp    %eax,0x1c(%rsp)
+ 495:	0f 8f 30 01 00 00    	jg     5cb <tracer()+0x3ab>
+ 49b:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 4a2 <tracer()+0x282>
+ 4a2:	44 8b 6c 24 14       	mov    0x14(%rsp),%r13d
+ 4a7:	48 85 ff             	test   %rdi,%rdi
+ 4aa:	74 24                	je     4d0 <tracer()+0x2b0>
+ 4ac:	8b 74 24 18          	mov    0x18(%rsp),%esi
+ 4b0:	41 b8 64 00 00 00    	mov    $0x64,%r8d
+ 4b6:	89 f0                	mov    %esi,%eax
+ 4b8:	41 0f af c0          	imul   %r8d,%eax
+ 4bc:	99                   	cltd   
+ 4bd:	41 f7 fd             	idiv   %r13d
+ 4c0:	89 f2                	mov    %esi,%edx
+ 4c2:	be 00 00 00 00       	mov    $0x0,%esi
+ 4c7:	89 c1                	mov    %eax,%ecx
+ 4c9:	31 c0                	xor    %eax,%eax
+ 4cb:	e8 00 00 00 00       	callq  4d0 <tracer()+0x2b0>
+ 4d0:	e8 00 00 00 00       	callq  4d5 <tracer()+0x2b5>
+ 4d5:	48 8b 1d 00 00 00 00 	mov    0x0(%rip),%rbx        # 4dc <tracer()+0x2bc>
+ 4dc:	48 8b 3b             	mov    (%rbx),%rdi
+ 4df:	e8 00 00 00 00       	callq  4e4 <tracer()+0x2c4>
+ 4e4:	48 89 df             	mov    %rbx,%rdi
+ 4e7:	e8 00 00 00 00       	callq  4ec <tracer()+0x2cc>
+ 4ec:	4c 89 e7             	mov    %r12,%rdi
+ 4ef:	e8 00 00 00 00       	callq  4f4 <tracer()+0x2d4>
+ 4f4:	48 8b 7c 24 28       	mov    0x28(%rsp),%rdi
+ 4f9:	e8 00 00 00 00       	callq  4fe <tracer()+0x2de>
+ 4fe:	4c 89 f7             	mov    %r14,%rdi
+ 501:	e8 00 00 00 00       	callq  506 <tracer()+0x2e6>
+ 506:	48 8b 3c 24          	mov    (%rsp),%rdi
+ 50a:	e8 00 00 00 00       	callq  50f <tracer()+0x2ef>
+ 50f:	80 7c 24 20 00       	cmpb   $0x0,0x20(%rsp)
+ 514:	75 7b                	jne    591 <tracer()+0x371>
+ 516:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 51d <tracer()+0x2fd>
+ 51d:	48 85 ff             	test   %rdi,%rdi
+ 520:	74 0b                	je     52d <tracer()+0x30d>
+ 522:	8b 35 00 00 00 00    	mov    0x0(%rip),%esi        # 528 <tracer()+0x308>
+ 528:	e8 00 00 00 00       	callq  52d <tracer()+0x30d>
+ 52d:	8b 44 24 20          	mov    0x20(%rsp),%eax
+ 531:	48 83 c4 68          	add    $0x68,%rsp
+ 535:	5b                   	pop    %rbx
+ 536:	5d                   	pop    %rbp
+ 537:	41 5c                	pop    %r12
+ 539:	41 5d                	pop    %r13
+ 53b:	c1 e0 1f             	shl    $0x1f,%eax
+ 53e:	c1 f8 1f             	sar    $0x1f,%eax
+ 541:	41 5e                	pop    %r14
+ 543:	83 e0 20             	and    $0x20,%eax
+ 546:	41 5f                	pop    %r15
+ 548:	c3                   	retq   
+ 549:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+ 550:	48 63 45 54          	movslq 0x54(%rbp),%rax
+ 554:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
+ 559:	48 89 ea             	mov    %rbp,%rdx
+ 55c:	8b 75 60             	mov    0x60(%rbp),%esi
+ 55f:	48 8b 3c 24          	mov    (%rsp),%rdi
+ 563:	4c 8d 24 c1          	lea    (%rcx,%rax,8),%r12
+ 567:	f7 de                	neg    %esi
+ 569:	48 63 f6             	movslq %esi,%rsi
+ 56c:	e8 00 00 00 00       	callq  571 <tracer()+0x351>
+ 571:	49 89 04 24          	mov    %rax,(%r12)
+ 575:	e9 2f fe ff ff       	jmpq   3a9 <tracer()+0x189>
+ 57a:	48 63 b1 e0 00 00 00 	movslq 0xe0(%rcx),%rsi
+ 581:	e9 81 fe ff ff       	jmpq   407 <tracer()+0x1e7>
+ 586:	8b 81 f0 00 00 00    	mov    0xf0(%rcx),%eax
+ 58c:	e9 7b fd ff ff       	jmpq   30c <tracer()+0xec>
+ 591:	bf 01 00 00 00       	mov    $0x1,%edi
+ 596:	e8 00 00 00 00       	callq  59b <tracer()+0x37b>
+ 59b:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 5a2 <tracer()+0x382>
+ 5a2:	48 8b 40 20          	mov    0x20(%rax),%rax
+ 5a6:	48 85 c0             	test   %rax,%rax
+ 5a9:	0f 84 67 ff ff ff    	je     516 <tracer()+0x2f6>
+ 5af:	83 08 40             	orl    $0x40,(%rax)
+ 5b2:	e9 5f ff ff ff       	jmpq   516 <tracer()+0x2f6>
+ 5b7:	48 89 d0             	mov    %rdx,%rax
+ 5ba:	48 c7 44 24 38 00 00 	movq   $0x0,0x38(%rsp)
+ 5c1:	00 00 
+ 5c3:	45 31 ed             	xor    %r13d,%r13d
+ 5c6:	e9 20 fe ff ff       	jmpq   3eb <tracer()+0x1cb>
+ 5cb:	4c 39 7c 24 30       	cmp    %r15,0x30(%rsp)
+ 5d0:	0f 8e c5 fe ff ff    	jle    49b <tracer()+0x27b>
+ 5d6:	48 8b 2c 24          	mov    (%rsp),%rbp
+ 5da:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+ 5e0:	48 89 ef             	mov    %rbp,%rdi
+ 5e3:	e8 00 00 00 00       	callq  5e8 <tracer()+0x3c8>
+ 5e8:	85 c0                	test   %eax,%eax
+ 5ea:	0f 85 ab fe ff ff    	jne    49b <tracer()+0x27b>
+ 5f0:	48 89 ef             	mov    %rbp,%rdi
+ 5f3:	e8 00 00 00 00       	callq  5f8 <tracer()+0x3d8>
+ 5f8:	48 85 c0             	test   %rax,%rax
+ 5fb:	48 89 c3             	mov    %rax,%rbx
+ 5fe:	0f 84 97 fe ff ff    	je     49b <tracer()+0x27b>
+ 604:	48 63 43 54          	movslq 0x54(%rbx),%rax
+ 608:	48 89 df             	mov    %rbx,%rdi
+ 60b:	49 c7 04 c4 00 00 00 	movq   $0x0,(%r12,%rax,8)
+ 612:	00 
+ 613:	e8 68 fa ff ff       	callq  80 <ignore_bb_p(basic_block_def const*)>
+ 618:	84 c0                	test   %al,%al
+ 61a:	75 c4                	jne    5e0 <tracer()+0x3c0>
+ 61c:	8b 53 54             	mov    0x54(%rbx),%edx
+ 61f:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 626 <tracer()+0x406>
+ 626:	89 d1                	mov    %edx,%ecx
+ 628:	c1 e9 06             	shr    $0x6,%ecx
+ 62b:	48 8b 44 c8 10       	mov    0x10(%rax,%rcx,8),%rax
+ 630:	89 d1                	mov    %edx,%ecx
+ 632:	48 d3 e8             	shr    %cl,%rax
+ 635:	a8 01                	test   $0x1,%al
+ 637:	0f 85 9e 03 00 00    	jne    9db <tracer()+0x7bb>
+ 63d:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 644 <tracer()+0x424>
+ 644:	48 85 ff             	test   %rdi,%rdi
+ 647:	74 17                	je     660 <tracer()+0x440>
+ 649:	8b 4b 60             	mov    0x60(%rbx),%ecx
+ 64c:	be 00 00 00 00       	mov    $0x0,%esi
+ 651:	31 c0                	xor    %eax,%eax
+ 653:	e8 00 00 00 00       	callq  658 <tracer()+0x438>
+ 658:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+ 65f:	00 
+ 660:	48 89 df             	mov    %rbx,%rdi
+ 663:	e8 58 fa ff ff       	callq  c0 <find_best_predecessor(basic_block_def*)>
+ 668:	48 85 c0             	test   %rax,%rax
+ 66b:	48 89 c5             	mov    %rax,%rbp
+ 66e:	74 2b                	je     69b <tracer()+0x47b>
+ 670:	4c 8b 6d 00          	mov    0x0(%rbp),%r13
+ 674:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 67b <tracer()+0x45b>
+ 67b:	41 8b 4d 54          	mov    0x54(%r13),%ecx
+ 67f:	89 ca                	mov    %ecx,%edx
+ 681:	c1 ea 06             	shr    $0x6,%edx
+ 684:	48 8b 54 d0 10       	mov    0x10(%rax,%rdx,8),%rdx
+ 689:	48 d3 ea             	shr    %cl,%rdx
+ 68c:	83 e2 01             	and    $0x1,%edx
+ 68f:	75 0a                	jne    69b <tracer()+0x47b>
+ 691:	f6 45 28 5e          	testb  $0x5e,0x28(%rbp)
+ 695:	0f 84 cd 02 00 00    	je     968 <tracer()+0x748>
+ 69b:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 6a2 <tracer()+0x482>
+ 6a2:	49 89 dd             	mov    %rbx,%r13
+ 6a5:	48 85 ff             	test   %rdi,%rdi
+ 6a8:	74 16                	je     6c0 <tracer()+0x4a0>
+ 6aa:	8b 4b 60             	mov    0x60(%rbx),%ecx
+ 6ad:	8b 53 54             	mov    0x54(%rbx),%edx
+ 6b0:	be 00 00 00 00       	mov    $0x0,%esi
+ 6b5:	31 c0                	xor    %eax,%eax
+ 6b7:	e8 00 00 00 00       	callq  6bc <tracer()+0x49c>
+ 6bc:	0f 1f 40 00          	nopl   0x0(%rax)
+ 6c0:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+ 6c5:	48 8b 6c 24 40       	mov    0x40(%rsp),%rbp
+ 6ca:	48 89 18             	mov    %rbx,(%rax)
+ 6cd:	bb 01 00 00 00       	mov    $0x1,%ebx
+ 6d2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+ 6d8:	4c 89 ef             	mov    %r13,%rdi
+ 6db:	e8 a0 fa ff ff       	callq  180 <find_best_successor(basic_block_def*)>
+ 6e0:	48 85 c0             	test   %rax,%rax
+ 6e3:	48 89 c2             	mov    %rax,%rdx
+ 6e6:	74 2a                	je     712 <tracer()+0x4f2>
+ 6e8:	4c 8b 6a 08          	mov    0x8(%rdx),%r13
+ 6ec:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 6f3 <tracer()+0x4d3>
+ 6f3:	41 8b 4d 54          	mov    0x54(%r13),%ecx
+ 6f7:	89 ce                	mov    %ecx,%esi
+ 6f9:	c1 ee 06             	shr    $0x6,%esi
+ 6fc:	48 8b 44 f0 10       	mov    0x10(%rax,%rsi,8),%rax
+ 701:	48 d3 e8             	shr    %cl,%rax
+ 704:	a8 01                	test   $0x1,%al
+ 706:	75 0a                	jne    712 <tracer()+0x4f2>
+ 708:	f6 42 28 5e          	testb  $0x5e,0x28(%rdx)
+ 70c:	0f 84 06 02 00 00    	je     918 <tracer()+0x6f8>
+ 712:	48 8b 35 00 00 00 00 	mov    0x0(%rip),%rsi        # 719 <tracer()+0x4f9>
+ 719:	48 85 f6             	test   %rsi,%rsi
+ 71c:	74 0a                	je     728 <tracer()+0x508>
+ 71e:	bf 0a 00 00 00       	mov    $0xa,%edi
+ 723:	e8 00 00 00 00       	callq  728 <tracer()+0x508>
+ 728:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+ 72d:	48 8b 28             	mov    (%rax),%rbp
+ 730:	48 63 55 54          	movslq 0x54(%rbp),%rdx
+ 734:	8b 45 60             	mov    0x60(%rbp),%eax
+ 737:	41 0f af 04 96       	imul   (%r14,%rdx,4),%eax
+ 73c:	49 8b 34 d4          	mov    (%r12,%rdx,8),%rsi
+ 740:	48 98                	cltq   
+ 742:	49 01 c7             	add    %rax,%r15
+ 745:	48 85 f6             	test   %rsi,%rsi
+ 748:	74 15                	je     75f <tracer()+0x53f>
+ 74a:	48 8b 3c 24          	mov    (%rsp),%rdi
+ 74e:	e8 00 00 00 00       	callq  753 <tracer()+0x533>
+ 753:	48 63 45 54          	movslq 0x54(%rbp),%rax
+ 757:	49 c7 04 c4 00 00 00 	movq   $0x0,(%r12,%rax,8)
+ 75e:	00 
+ 75f:	83 fb 01             	cmp    $0x1,%ebx
+ 762:	0f 84 37 02 00 00    	je     99f <tracer()+0x77f>
+ 768:	48 8b 44 24 48       	mov    0x48(%rsp),%rax
+ 76d:	83 eb 02             	sub    $0x2,%ebx
+ 770:	48 8d 04 d8          	lea    (%rax,%rbx,8),%rax
+ 774:	48 8b 5c 24 40       	mov    0x40(%rsp),%rbx
+ 779:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+ 77e:	e9 29 01 00 00       	jmpq   8ac <tracer()+0x68c>
+ 783:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+ 788:	4c 89 ef             	mov    %r13,%rdi
+ 78b:	e8 00 00 00 00       	callq  790 <tracer()+0x570>
+ 790:	84 c0                	test   %al,%al
+ 792:	0f 84 70 01 00 00    	je     908 <tracer()+0x6e8>
+ 798:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 79f <tracer()+0x57f>
+ 79f:	48 83 78 20 00       	cmpq   $0x0,0x20(%rax)
+ 7a4:	74 0e                	je     7b4 <tracer()+0x594>
+ 7a6:	49 8b 45 18          	mov    0x18(%r13),%rax
+ 7aa:	4c 3b 68 08          	cmp    0x8(%rax),%r13
+ 7ae:	0f 84 54 01 00 00    	je     908 <tracer()+0x6e8>
+ 7b4:	49 63 45 54          	movslq 0x54(%r13),%rax
+ 7b8:	48 89 ef             	mov    %rbp,%rdi
+ 7bb:	4c 89 ee             	mov    %r13,%rsi
+ 7be:	41 8b 04 86          	mov    (%r14,%rax,4),%eax
+ 7c2:	01 44 24 18          	add    %eax,0x18(%rsp)
+ 7c6:	e8 00 00 00 00       	callq  7cb <tracer()+0x5ab>
+ 7cb:	48 89 ea             	mov    %rbp,%rdx
+ 7ce:	48 89 c6             	mov    %rax,%rsi
+ 7d1:	4c 89 ef             	mov    %r13,%rdi
+ 7d4:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+ 7d9:	e8 00 00 00 00       	callq  7de <tracer()+0x5be>
+ 7de:	48 8b 4c 24 20       	mov    0x20(%rsp),%rcx
+ 7e3:	48 89 44 24 58       	mov    %rax,0x58(%rsp)
+ 7e8:	48 89 cf             	mov    %rcx,%rdi
+ 7eb:	e8 00 00 00 00       	callq  7f0 <tracer()+0x5d0>
+ 7f0:	48 8d 7c 24 58       	lea    0x58(%rsp),%rdi
+ 7f5:	31 d2                	xor    %edx,%edx
+ 7f7:	be 01 00 00 00       	mov    $0x1,%esi
+ 7fc:	e8 00 00 00 00       	callq  801 <tracer()+0x5e1>
+ 801:	49 63 45 54          	movslq 0x54(%r13),%rax
+ 805:	48 8b 3c 24          	mov    (%rsp),%rdi
+ 809:	4c 89 ea             	mov    %r13,%rdx
+ 80c:	49 8d 2c c4          	lea    (%r12,%rax,8),%rbp
+ 810:	41 8b 45 60          	mov    0x60(%r13),%eax
+ 814:	f7 d8                	neg    %eax
+ 816:	48 63 f0             	movslq %eax,%rsi
+ 819:	e8 00 00 00 00       	callq  81e <tracer()+0x5fe>
+ 81e:	48 89 45 00          	mov    %rax,0x0(%rbp)
+ 822:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 829 <tracer()+0x609>
+ 829:	48 85 ff             	test   %rdi,%rdi
+ 82c:	74 1c                	je     84a <tracer()+0x62a>
+ 82e:	48 8b 44 24 58       	mov    0x58(%rsp),%rax
+ 833:	41 8b 55 54          	mov    0x54(%r13),%edx
+ 837:	be 00 00 00 00       	mov    $0x0,%esi
+ 83c:	8b 48 54             	mov    0x54(%rax),%ecx
+ 83f:	44 8b 40 60          	mov    0x60(%rax),%r8d
+ 843:	31 c0                	xor    %eax,%eax
+ 845:	e8 00 00 00 00       	callq  84a <tracer()+0x62a>
+ 84a:	48 8b 6c 24 58       	mov    0x58(%rsp),%rbp
+ 84f:	c6 44 24 20 01       	movb   $0x1,0x20(%rsp)
+ 854:	8b 4d 54             	mov    0x54(%rbp),%ecx
+ 857:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 85e <tracer()+0x63e>
+ 85e:	8b 77 08             	mov    0x8(%rdi),%esi
+ 861:	39 ce                	cmp    %ecx,%esi
+ 863:	77 16                	ja     87b <tracer()+0x65b>
+ 865:	01 f6                	add    %esi,%esi
+ 867:	31 d2                	xor    %edx,%edx
+ 869:	e8 00 00 00 00       	callq  86e <tracer()+0x64e>
+ 86e:	8b 4d 54             	mov    0x54(%rbp),%ecx
+ 871:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # 878 <tracer()+0x658>
+ 878:	48 89 c7             	mov    %rax,%rdi
+ 87b:	89 c8                	mov    %ecx,%eax
+ 87d:	ba 01 00 00 00       	mov    $0x1,%edx
+ 882:	c1 e8 06             	shr    $0x6,%eax
+ 885:	48 d3 e2             	shl    %cl,%rdx
+ 888:	48 09 54 c7 10       	or     %rdx,0x10(%rdi,%rax,8)
+ 88d:	48 89 ef             	mov    %rbp,%rdi
+ 890:	e8 eb f7 ff ff       	callq  80 <ignore_bb_p(basic_block_def const*)>
+ 895:	84 c0                	test   %al,%al
+ 897:	0f 85 02 01 00 00    	jne    99f <tracer()+0x77f>
+ 89d:	48 83 c3 08          	add    $0x8,%rbx
+ 8a1:	48 3b 5c 24 08       	cmp    0x8(%rsp),%rbx
+ 8a6:	0f 84 f3 00 00 00    	je     99f <tracer()+0x77f>
+ 8ac:	4c 8b 2b             	mov    (%rbx),%r13
+ 8af:	41 8b 4d 54          	mov    0x54(%r13),%ecx
+ 8b3:	48 63 c1             	movslq %ecx,%rax
+ 8b6:	49 8b 34 c4          	mov    (%r12,%rax,8),%rsi
+ 8ba:	48 85 f6             	test   %rsi,%rsi
+ 8bd:	74 18                	je     8d7 <tracer()+0x6b7>
+ 8bf:	48 8b 3c 24          	mov    (%rsp),%rdi
+ 8c3:	e8 00 00 00 00       	callq  8c8 <tracer()+0x6a8>
+ 8c8:	41 8b 4d 54          	mov    0x54(%r13),%ecx
+ 8cc:	48 63 c1             	movslq %ecx,%rax
+ 8cf:	49 c7 04 c4 00 00 00 	movq   $0x0,(%r12,%rax,8)
+ 8d6:	00 
+ 8d7:	41 8b 55 60          	mov    0x60(%r13),%edx
+ 8db:	41 0f af 14 86       	imul   (%r14,%rax,4),%edx
+ 8e0:	49 8b 45 00          	mov    0x0(%r13),%rax
+ 8e4:	48 63 d2             	movslq %edx,%rdx
+ 8e7:	49 01 d7             	add    %rdx,%r15
+ 8ea:	48 85 c0             	test   %rax,%rax
+ 8ed:	74 0a                	je     8f9 <tracer()+0x6d9>
+ 8ef:	83 78 04 01          	cmpl   $0x1,0x4(%rax)
+ 8f3:	0f 87 8f fe ff ff    	ja     788 <tracer()+0x568>
+ 8f9:	4c 89 ed             	mov    %r13,%rbp
+ 8fc:	e9 56 ff ff ff       	jmpq   857 <tracer()+0x637>
+ 901:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+ 908:	41 8b 4d 54          	mov    0x54(%r13),%ecx
+ 90c:	4c 89 ed             	mov    %r13,%rbp
+ 90f:	e9 43 ff ff ff       	jmpq   857 <tracer()+0x637>
+ 914:	0f 1f 40 00          	nopl   0x0(%rax)
+ 918:	4c 89 ef             	mov    %r13,%rdi
+ 91b:	48 89 54 24 08       	mov    %rdx,0x8(%rsp)
+ 920:	e8 9b f7 ff ff       	callq  c0 <find_best_predecessor(basic_block_def*)>
+ 925:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+ 92a:	48 39 c2             	cmp    %rax,%rdx
+ 92d:	0f 85 df fd ff ff    	jne    712 <tracer()+0x4f2>
+ 933:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 93a <tracer()+0x71a>
+ 93a:	48 85 ff             	test   %rdi,%rdi
+ 93d:	74 14                	je     953 <tracer()+0x733>
+ 93f:	41 8b 4d 60          	mov    0x60(%r13),%ecx
+ 943:	41 8b 55 54          	mov    0x54(%r13),%edx
+ 947:	be 00 00 00 00       	mov    $0x0,%esi
+ 94c:	31 c0                	xor    %eax,%eax
+ 94e:	e8 00 00 00 00       	callq  953 <tracer()+0x733>
+ 953:	4c 89 6d 00          	mov    %r13,0x0(%rbp)
+ 957:	83 c3 01             	add    $0x1,%ebx
+ 95a:	48 83 c5 08          	add    $0x8,%rbp
+ 95e:	e9 75 fd ff ff       	jmpq   6d8 <tracer()+0x4b8>
+ 963:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+ 968:	4c 89 ef             	mov    %r13,%rdi
+ 96b:	e8 10 f8 ff ff       	callq  180 <find_best_successor(basic_block_def*)>
+ 970:	48 39 c5             	cmp    %rax,%rbp
+ 973:	0f 85 22 fd ff ff    	jne    69b <tracer()+0x47b>
+ 979:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 980 <tracer()+0x760>
+ 980:	48 85 ff             	test   %rdi,%rdi
+ 983:	74 12                	je     997 <tracer()+0x777>
+ 985:	8b 4b 60             	mov    0x60(%rbx),%ecx
+ 988:	8b 53 54             	mov    0x54(%rbx),%edx
+ 98b:	be 00 00 00 00       	mov    $0x0,%esi
+ 990:	31 c0                	xor    %eax,%eax
+ 992:	e8 00 00 00 00       	callq  997 <tracer()+0x777>
+ 997:	4c 89 eb             	mov    %r13,%rbx
+ 99a:	e9 c1 fc ff ff       	jmpq   660 <tracer()+0x440>
+ 99f:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 9a6 <tracer()+0x786>
+ 9a6:	48 85 ff             	test   %rdi,%rdi
+ 9a9:	0f 84 de fa ff ff    	je     48d <tracer()+0x26d>
+ 9af:	f2 49 0f 2a c7       	cvtsi2sd %r15,%xmm0
+ 9b4:	f2 48 0f 2a 4c 24 38 	cvtsi2sdq 0x38(%rsp),%xmm1
+ 9bb:	be 00 00 00 00       	mov    $0x0,%esi
+ 9c0:	b8 01 00 00 00       	mov    $0x1,%eax
+ 9c5:	f2 0f 59 05 00 00 00 	mulsd  0x0(%rip),%xmm0        # 9cd <tracer()+0x7ad>
+ 9cc:	00 
+ 9cd:	f2 0f 5e c1          	divsd  %xmm1,%xmm0
+ 9d1:	e8 00 00 00 00       	callq  9d6 <tracer()+0x7b6>
+ 9d6:	e9 b2 fa ff ff       	jmpq   48d <tracer()+0x26d>
+ 9db:	ba 00 00 00 00       	mov    $0x0,%edx
+ 9e0:	be 1c 01 00 00       	mov    $0x11c,%esi
+ 9e5:	bf 00 00 00 00       	mov    $0x0,%edi
+ 9ea:	e8 00 00 00 00       	callq  9ef <tracer()+0x7cf>

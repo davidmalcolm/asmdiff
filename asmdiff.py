@@ -131,23 +131,27 @@ def fn_equal(old, new):
                for oldinstr, newinstr in zip(old.instrs, new.instrs))
 
 def fn_diff(old, new, out):
-    if fn_equal(old, new):
-        out.writeln('Unchanged function: %s' % old.name)
+    def handle_minor_changes():
         if old.name != new.name:
             out.writeln('  (renamed to %s)' % new.name)
+        if old.offset != new.offset:
+            out.writeln('  (moved offset within section from %s to %s)' % (old.offset, new.offset))
+
+    if fn_equal(old, new):
+        out.writeln('Unchanged function: %s' % old.name)
+        handle_minor_changes()
         return
 
     out.writeln('Changed function: %s' % old.name)
-    if old.name != new.name:
-        out.writeln('  (renamed to %s)' % new.name)
+    handle_minor_changes()
 
     with out.indent():
         for oldinstr, newinstr in zip(old.instrs, new.instrs):
             if oldinstr.disasm == newinstr.disasm:
-                out.writeln('%04s: %s' % (oldinstr.offset, oldinstr.disasm))
+                out.writeln('FN+%04s: %s' % (HexInt(oldinstr.offset - old.offset), oldinstr.disasm))
             else:
-                out.writeln('%04s: Old: %s' % (oldinstr.offset, oldinstr.disasm))
-                out.writeln('    : New: %s' % (newinstr.disasm, ))
+                out.writeln('FN+%04s: Old: %s' % (HexInt(oldinstr.offset - old.offset), oldinstr.disasm))
+                out.writeln('       : New: %s' % (newinstr.disasm, ))
 
 class Peers:
     """

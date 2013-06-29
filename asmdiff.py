@@ -76,6 +76,12 @@ class Function:
         self.padding = self.instrs[start_of_padding:]
         self.instrs = self.instrs[:start_of_padding]
 
+    def get_instr_at_relative_offset(self, reloffset):
+        offset = self.offset + reloffset
+        for instr in self.instrs:
+            if instr.offset == offset:
+                return instr
+
 class Section:
     def __init__(self, name):
         self.name = name
@@ -109,6 +115,27 @@ class ObjDump(AsmFile):
     """
     Parser for output from objdump -d
     """
+    @classmethod
+    def fixup_disasm(cls, disasm, rawfuncname, demangler):
+        # Fixup jump offsets to refer to "THIS_FN" (to minimize changes due
+        # to function renaming)
+        m = re.match(r'.*\s([0-9a-f]+ \<.+\+0x[0-9a-f]+\>)', disasm)
+        if m:
+            m2 = re.match(r'[0-9a-f]+ \<(.+)\+(0x[0-9a-f]+)\>',
+                          m.group(1))
+            if m2.group(1) == rawfuncname:
+                disasm = disasm[:m.start(1)] + 'THIS_FN+' + m2.group(2) + disasm[m.end(1):]
+
+        # Fixup jumps to other functions by removing the offset within the
+        # section, and demangling
+        m = re.match(r'.*\s([0-9a-f]+) (\<.+\>)', disasm)
+        if m:
+            if m.group(2) != rawfuncname:
+                disasm = (disasm[:m.start(1)]
+                          + demangler.demangle(m.group(2)))
+
+        return disasm
+
     def __init__(self, f, debug=0):
         AsmFile.__init__(self)
         self.debug = debug
@@ -186,14 +213,8 @@ class ObjDump(AsmFile):
     def _on_instruction(self, offset, hexdump, disasm):
         if self.debug:
             print('INSTRUCTION:0x%x %r %r' % (offset, hexdump, disasm))
-        # Fixup jump offsets to refer to "THIS_FN" (to minimize changes due
-        # to function renaming)
-        m = re.match(r'.*\s([0-9a-f]+ \<.+\+0x[0-9a-f]+\>)', disasm)
-        if m:
-            m2 = re.match(r'[0-9a-f]+ \<(.+)\+(0x[0-9a-f]+)\>',
-                          m.group(1))
-            if m2.group(1) == self._cur_function.rawname:
-                disasm = disasm[:m.start(1)] + 'THIS_FN+' + m2.group(2) + disasm[m.end(1):]
+        disasm = self.fixup_disasm(disasm, self._cur_function.rawname,
+                                   self._demangler)
         instr = Instruction(offset, hexdump, disasm)
         self._cur_function.instrs.append(instr)
 

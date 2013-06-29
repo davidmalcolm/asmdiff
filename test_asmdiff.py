@@ -1,6 +1,7 @@
 import unittest
 
-from asmdiff import read_objdump, FunctionMatchupSet, fn_equal, Instruction, Demangler
+from asmdiff import read_objdump, FunctionMatchupSet, fn_equal, \
+    Instruction, Demangler, ObjDump
 
 class TestObjdumpParsing(unittest.TestCase):
     def parse_objdump(self):
@@ -99,12 +100,44 @@ class TestDiff(unittest.TestCase):
         self.assertEqual(peers.gone, [])
         self.assertEqual(peers.appeared, [])
 
-class TestDemangling(unittest.TestCase):
+        oldfn = old.get_demangled_function(
+            'find_best_predecessor(basic_block_def*)')
+        newfn = peers.old_to_new[oldfn]
+
+        oldinstr = oldfn.get_instr_at_relative_offset(0xaa)
+        newinstr = newfn.get_instr_at_relative_offset(0xaa)
+        # This changes from:
+        #  FN+0xaa: Old: callq  3e1 <ignore_bb_p(basic_block_def const*)>
+        #         : New: callq  353 <ignore_bb_p(basic_block_def const*)>
+        # which isn't really a change
+        self.assertEqual(oldinstr.disasm, 'callq  <ignore_bb_p(basic_block_def const*)>')
+        self.assertEqual(newinstr.disasm, 'callq  <ignore_bb_p(basic_block_def const*)>')
+
+class TestDemangler(unittest.TestCase):
     def test_demangling(self):
         d = Demangler()
         self.assertEqual(d.demangle('_ZL12mark_bb_seenP15basic_block_def'),
                          'mark_bb_seen(basic_block_def*)')
         self.assertEqual(d.demangle('_ZN3vecIP8edge_def5va_gc8vl_embedEixEj'),
                          'vec<edge_def*, va_gc, vl_embed>::operator[](unsigned int)')
+
+class TestFixupDisasm(unittest.TestCase):
+    demangler = Demangler()
+
+    def test_fixup_within_fn(self):
+        self.assertEqual(
+            ObjDump.fixup_disasm(
+                'mov    0x0(%rip),%rax        # 78e <tracer_state::find_trace(basic_block_def*, basic_block_def**)+0x1e>',
+                'tracer_state::find_trace(basic_block_def*, basic_block_def**)',
+                self.demangler),
+            'mov    0x0(%rip),%rax        # THIS_FN+0x1e')
+
+    def test_fixup_calling_other_fn(self):
+        self.assertEqual(
+            ObjDump.fixup_disasm(
+                'callq  3e1 <_ZL11ignore_bb_pPK15basic_block_def>',
+                None,
+                self.demangler),
+            'callq  <ignore_bb_p(basic_block_def const*)>')
 
 unittest.main()

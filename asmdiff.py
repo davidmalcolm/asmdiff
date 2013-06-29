@@ -33,12 +33,33 @@ class Instruction:
             return False
         return True
 
-class Function:
-    def __init__(self, offset, name):
-        self.offset = HexInt(offset)
+class Scope(dict):
+    """
+    Scope/namespace for matching C++ names
+    """
+    def __init__(self, name):
         self.name = name
+
+class Function:
+    def __init__(self, offset, rawname, demangled, leafname):
+        self.offset = HexInt(offset)
+        self.rawname = rawname
+        self.demangled = demangled
+        # The "leafname" is the name within the innermost scope
+        self.leafname = leafname
         self.instrs = []
         self.padding = []
+
+    def __repr__(self):
+        return 'Function(%r)' % self.demangled
+
+    def __hash__(self):
+        return hash(self.rawname)
+
+    def __eq__(self, other):
+        if self.rawname != other.rawname:
+            return False
+        return True
 
     def finish(self):
         """
@@ -79,6 +100,11 @@ class AsmFile:
         self.sections = OrderedDict()
         self.functions = OrderedDict()
 
+    def get_demangled_function(self, demangled):
+        for fn in self.functions.values():
+            if fn.demangled == demangled:
+                return fn
+
 class ObjDump(AsmFile):
     """
     Parser for output from objdump -d
@@ -89,6 +115,9 @@ class ObjDump(AsmFile):
 
         self.objpath = None
         self.fileformat = None
+
+        self._demangler = Demangler()
+        self.rootns = Scope('::')
 
         for line in f:
             if debug:
@@ -143,8 +172,16 @@ class ObjDump(AsmFile):
             print('FUNCTION:0x%x %s' % (offset, name))
         if self._cur_function:
             self._cur_function.finish()
-        self._cur_function = Function(offset, name)
+        demangled = self._demangler.demangle(name)
+        scopes = demangled.split('::')
+        self._cur_function = Function(offset, name, demangled, scopes[-1])
+        curscope = self.rootns
+        for scope in scopes[:-1]:
+            if scope not in curscope:
+                curscope[scope] = Scope(scope)
+            curscope = curscope[scope]
         self.functions[name] = self._cur_function
+        curscope[scopes[-1]] = self._cur_function
 
     def _on_instruction(self, offset, hexdump, disasm):
         if self.debug:
@@ -155,7 +192,7 @@ class ObjDump(AsmFile):
         if m:
             m2 = re.match(r'[0-9a-f]+ \<(.+)\+(0x[0-9a-f]+)\>',
                           m.group(1))
-            if m2.group(1) == self._cur_function.name:
+            if m2.group(1) == self._cur_function.rawname:
                 disasm = disasm[:m.start(1)] + 'THIS_FN+' + m2.group(2) + disasm[m.end(1):]
         instr = Instruction(offset, hexdump, disasm)
         self._cur_function.instrs.append(instr)
@@ -168,17 +205,17 @@ def fn_equal(old, new):
 
 def fn_diff(old, new, out):
     def handle_minor_changes():
-        if old.name != new.name:
-            out.writeln('  (renamed to %s)' % new.name)
+        if old.rawname != new.rawname:
+            out.writeln('  (renamed to %s)' % new.demangled)
         if old.offset != new.offset:
             out.writeln('  (moved offset within section from %s to %s)' % (old.offset, new.offset))
 
     if fn_equal(old, new):
-        out.writeln('Unchanged function: %s' % old.name)
+        out.writeln('Unchanged function: %s' % old.demangled)
         handle_minor_changes()
         return
 
-    out.writeln('Changed function: %s' % old.name)
+    out.writeln('Changed function: %s' % old.demangled)
     handle_minor_changes()
 
     with out.indent():
@@ -189,9 +226,15 @@ def fn_diff(old, new, out):
                 out.writeln('FN+%04s: Old: %s' % (HexInt(oldinstr.offset - old.offset), oldinstr.disasm))
                 out.writeln('       : New: %s' % (newinstr.disasm, ))
 
-class Peers:
+class Peer:
     """
-    Match up peers between two sets of items, old and new
+    A peer item for a MatchupSet
+    """
+    pass
+
+class MatchupSet:
+    """
+    A matching-up of peers between two sets of items, old and new
     """
     def __init__(self, old, new):
         self.old = old
@@ -200,44 +243,55 @@ class Peers:
         self.new_to_old = {}
         self.gone = []
         self.appeared = []
-        for olditem in old:
+        for olditem in old.iteritems():
             newitem = self._lookup(olditem)
             if newitem:
                 self.old_to_new[olditem] = newitem
                 self.new_to_old[newitem] = olditem
             else:
                 self.gone.append(olditem)
-        for newitem in new:
+        for newitem in new.iteritems():
             if newitem not in self.new_to_old:
                 self.appeared.append(newitem)
 
     def _lookup(self, olditem):
         raise NotImplementedError
 
-class FunctionPeers(Peers):
+class FunctionPeer(Peer):
+    def __init__(self, asmfile):
+        self.asmfile = asmfile
+        self.fn_by_leafnames = {}
+        for function in asmfile.functions.values():
+            self.fn_by_leafnames[function.leafname] = function
+
+    def iteritems(self):
+        return self.asmfile.functions.values()
+
+class FunctionMatchupSet(MatchupSet):
     """
     Match up peer function names
     """
+    def __init__(self, old, new):
+        MatchupSet.__init__(self,
+                            FunctionPeer(old),
+                            FunctionPeer(new))
+
     def _lookup(self, olditem):
-        if olditem in self.new:
-            return olditem
-        # Find things that were moved to anonymous namespaces:
-        add_anon = '(anonymous namespace)::' + olditem
-        if add_anon in self.new:
-            return add_anon
+        if olditem.rawname in self.new.asmfile.functions:
+            return self.new.asmfile.functions[olditem.rawname]
+        if olditem.leafname in self.new.fn_by_leafnames:
+            return self.new.fn_by_leafnames[olditem.leafname]
 
 def asm_diff(old, new, out):
     out.writeln('Old: %s' % old.objpath)
     out.writeln('New: %s' % new.objpath)
-    peers = FunctionPeers(old.functions.keys(), new.functions.keys())
+    peers = FunctionMatchupSet(old, new)
     with out.indent():
         for gone in peers.gone:
             out.writeln('Function removed: %s' % gone)
         for appeared in peers.appeared:
             out.writeln('Function added: %s' % appeared)
-        for oldname, newname in peers.old_to_new.iteritems():
-            oldfn = old.functions[oldname]
-            newfn = new.functions[newname]
+        for oldfn, newfn in peers.old_to_new.iteritems():
             fn_diff(oldfn, newfn, out)
 
 class Output:

@@ -7,6 +7,9 @@ It attempts to be more useful than "diff" in the following ways:
 
   * It ignores reorderings of functions, instead matching them by name.
 
+  * It has heuristics for matching up methods between old and new even
+    if the underlying class is renamed, or if a function becomes a method.
+
   * Functions that appear/disappear are reported by name, rather than
     emitting the body of the code.
 

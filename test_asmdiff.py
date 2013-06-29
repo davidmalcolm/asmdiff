@@ -1,6 +1,6 @@
 import unittest
 
-from asmdiff import read_objdump, FunctionPeers, fn_equal, Instruction, Demangler
+from asmdiff import read_objdump, FunctionMatchupSet, fn_equal, Instruction, Demangler
 
 class TestObjdumpParsing(unittest.TestCase):
     def parse_objdump(self):
@@ -18,7 +18,7 @@ class TestObjdumpParsing(unittest.TestCase):
 
         self.assertIn('gate_tracer()', asm.functions)
         fn = asm.functions['gate_tracer()']
-        self.assertEqual(fn.name, 'gate_tracer()')
+        self.assertEqual(fn.rawname, 'gate_tracer()')
         self.assertEqual(len(fn.instrs), 13)
         self.assertEqual(fn.offset, 0x0)
 
@@ -49,29 +49,55 @@ class TestObjdumpParsing(unittest.TestCase):
         self.assertEqual(i3.bytes_, [0x7e, 0x15])
         self.assertEqual(i3.disasm, 'jle    THIS_FN+0x21')
 
+    def test_demangling(self):
+        asm = read_objdump('examples/objdump/add-classes/tracer.new')
+        RAWNAME = '_ZN12tracer_state19find_best_successorEP15basic_block_def'
+        self.assertIn(RAWNAME, asm.functions)
+        fn = asm.functions[RAWNAME]
+        self.assertEqual(fn.rawname, RAWNAME)
+        self.assertEqual(fn.demangled,
+                         'tracer_state::find_best_successor(basic_block_def*)')
+
 class TestDiff(unittest.TestCase):
-    old = read_objdump('examples/objdump/anon-namespace/tracer.old')
-    new = read_objdump('examples/objdump/anon-namespace/tracer.new')
+    def read_anon_namespace_files(self):
+        old = read_objdump('examples/objdump/anon-namespace/tracer.old')
+        new = read_objdump('examples/objdump/anon-namespace/tracer.new')
+        return old, new
 
     def test_adding_anon_namespace(self):
-        peers = FunctionPeers(self.old.functions.keys(), self.new.functions.keys())
+        old, new = self.read_anon_namespace_files()
+        peers = FunctionMatchupSet(old, new)
         self.assertEqual(peers.gone, [])
         self.assertEqual(peers.appeared, [])
+        oldfn = old.get_demangled_function(
+            'tracer_state::find_trace(basic_block_def*, basic_block_def**)')
+        self.assertIn(oldfn, peers.old_to_new)
+        newfn = peers.old_to_new[oldfn]
         self.assertEqual(
-            peers.old_to_new['tracer_state::find_trace(basic_block_def*, basic_block_def**)'],
+            newfn.demangled,
             '(anonymous namespace)::tracer_state::find_trace(basic_block_def*, basic_block_def**)')
 
-        oldfn = self.old.functions['gate_tracer()']
-        newfn = self.new.functions['gate_tracer()']
+        oldfn = old.functions['gate_tracer()']
+        newfn = new.functions['gate_tracer()']
         self.assertTrue(fn_equal(oldfn, newfn))
 
     def test_trailing_nops(self):
+        old, new = self.read_anon_namespace_files()
         FNNAME = 'loops_state_set(unsigned int)'
-        oldfn = self.old.functions[FNNAME]
-        newfn = self.new.functions[FNNAME]
+        oldfn = old.functions[FNNAME]
+        newfn = new.functions[FNNAME]
         self.assertEqual(oldfn.padding, [])
         self.assertEqual(newfn.padding, [Instruction(0x353, [144], 'nop')])
         self.assertTrue(fn_equal(oldfn, newfn))
+
+    def test_adding_classes(self):
+        old = read_objdump('examples/objdump/add-classes/tracer.old')
+        new = read_objdump('examples/objdump/add-classes/tracer.new')
+        peers = FunctionMatchupSet(old, new)
+        # Verify that it matches up various functions that become
+        # methods of class tracer_state:
+        self.assertEqual(peers.gone, [])
+        self.assertEqual(peers.appeared, [])
 
 class TestDemangling(unittest.TestCase):
     def test_demangling(self):

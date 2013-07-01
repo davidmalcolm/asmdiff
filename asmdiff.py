@@ -328,11 +328,12 @@ def asm_diff(old, new, out):
             fn_diff(oldfn, newfn, out)
 
 class Output:
-    def __init__(self):
+    def __init__(self, fileobj):
         self._indent = 0
+        self.fileobj = fileobj
 
     def writeln(self, str_):
-        print('%s%s' % (self._indent * '  ', str_))
+        self.fileobj.write('%s%s\n' % (self._indent * '  ', str_))
 
     def indent(self):
         class IndentCM:
@@ -354,4 +355,4 @@ def read_objdump(path):
 if __name__ == '__main__':
     old = read_objdump(sys.argv[1])
     new = read_objdump(sys.argv[2])
-    asm_diff(old, new, Output())
+    asm_diff(old, new, Output(sys.stdout))

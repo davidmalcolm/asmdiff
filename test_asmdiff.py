@@ -1,7 +1,8 @@
+import StringIO
 import unittest
 
 from asmdiff import read_objdump, FunctionMatchupSet, fn_equal, \
-    Instruction, Demangler, ObjDump
+    Instruction, Demangler, ObjDump, Output, asm_diff
 
 class TestObjdumpParsing(unittest.TestCase):
     def parse_objdump(self):
@@ -68,6 +69,14 @@ class TestDiff(unittest.TestCase):
         new = read_objdump('examples/objdump/anon-namespace/tracer.new')
         return old, new
 
+    def get_diff(self, old, new):
+        """
+        Run the diff tool, getting the output as a str
+        """
+        strio = StringIO.StringIO()
+        asm_diff(old, new, Output(strio))
+        return strio.getvalue()
+
     def test_adding_anon_namespace(self):
         old, new = self.read_anon_namespace_files()
         peers = FunctionMatchupSet(old, new)
@@ -118,6 +127,24 @@ class TestDiff(unittest.TestCase):
         self.assertEqual(new_callq.disasm,
                          'callq  <bitmap_bit_p(simple_bitmap_def const*, int)>')
 
+        out = self.get_diff(old, new)
+        self.assertIn('Old: tracer.o\n', out)
+        self.assertIn('New: tracer.o\n', out)
+        self.assertIn('  Unchanged function: ei_container(edge_iterator)\n', out)
+        self.assertIn(('\n'
+                       '  Unchanged function: gate_tracer()\n'
+                       '    (moved offset within .text from 0x11a8 to 0x1236)\n'),
+                      out)
+        self.assertIn(('\n'
+                       '  Unchanged function: tracer_state::find_best_successor(basic_block_def*)\n'
+                       '    (renamed to (anonymous namespace)::tracer_state::find_best_successor(basic_block_def*))\n'
+                       '    (moved offset within .text from 0x560 to 0x5ee)\n'),
+                      out)
+        # tracer_state::bb_seen_p(basic_block_def*):
+        self.assertIn('    (moved from .text._ZN12tracer_state9bb_seen_pEP15basic_block_def+0x0 to .text+0x3b6)',
+                      out)
+
+
     def test_trailing_nops(self):
         old, new = self.read_anon_namespace_files()
         FNNAME = 'loops_state_set(unsigned int)'
@@ -148,6 +175,12 @@ class TestDiff(unittest.TestCase):
         # which isn't really a change
         self.assertEqual(oldinstr.disasm, 'callq  <ignore_bb_p(basic_block_def const*)>')
         self.assertEqual(newinstr.disasm, 'callq  <ignore_bb_p(basic_block_def const*)>')
+
+        out = self.get_diff(old, new)
+        self.assertIn(('\n'
+                       '  Changed function: tail_duplicate()\n'
+                       '    (renamed to tracer_state::tail_duplicate())\n'),
+                      out)
 
 class TestDemangler(unittest.TestCase):
     def test_demangling(self):

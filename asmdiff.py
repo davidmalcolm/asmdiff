@@ -41,7 +41,8 @@ class Scope(dict):
         self.name = name
 
 class Function:
-    def __init__(self, offset, rawname, demangled, leafname):
+    def __init__(self, section, offset, rawname, demangled, leafname):
+        self.section = section
         self.offset = HexInt(offset)
         self.rawname = rawname
         self.demangled = demangled
@@ -85,6 +86,12 @@ class Function:
 class Section:
     def __init__(self, name):
         self.name = name
+
+    def __eq__(self, other):
+        return self.name == other.name
+
+    def __ne__(self, other):
+        return not self == other
 
 hexgrp = r'([0-9a-f]+)'
 opt_ws = '\s*'
@@ -201,7 +208,7 @@ class ObjDump(AsmFile):
             self._cur_function.finish()
         demangled = self._demangler.demangle(name)
         scopes = demangled.split('::')
-        self._cur_function = Function(offset, name, demangled, scopes[-1])
+        self._cur_function = Function(self._cur_section, offset, name, demangled, scopes[-1])
         curscope = self.rootns
         for scope in scopes[:-1]:
             if scope not in curscope:
@@ -228,8 +235,13 @@ def fn_diff(old, new, out):
     def handle_minor_changes():
         if old.rawname != new.rawname:
             out.writeln('  (renamed to %s)' % new.demangled)
-        if old.offset != new.offset:
-            out.writeln('  (moved offset within section from %s to %s)' % (old.offset, new.offset))
+        if old.section != new.section:
+            out.writeln('  (moved from %s+%s to %s+%s)'
+                        % (old.section.name, old.offset,
+                           new.section.name, new.offset))
+        elif old.offset != new.offset:
+            out.writeln('  (moved offset within %s from %s to %s)'
+                        % (old.section.name, old.offset, new.offset))
 
     if fn_equal(old, new):
         out.writeln('Unchanged function: %s' % old.demangled)

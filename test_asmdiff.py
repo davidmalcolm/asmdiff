@@ -21,6 +21,7 @@ class TestObjdumpParsing(unittest.TestCase):
         fn = asm.functions['gate_tracer()']
         self.assertEqual(fn.rawname, 'gate_tracer()')
         self.assertEqual(len(fn.instrs), 13)
+        self.assertEqual(fn.section.name, '.text')
         self.assertEqual(fn.offset, 0x0)
 
         """
@@ -58,6 +59,8 @@ class TestObjdumpParsing(unittest.TestCase):
         self.assertEqual(fn.rawname, RAWNAME)
         self.assertEqual(fn.demangled,
                          'tracer_state::find_best_successor(basic_block_def*)')
+        self.assertEqual(fn.offset, 0x560)
+        self.assertEqual(fn.section.name, '.text')
 
 class TestDiff(unittest.TestCase):
     def read_anon_namespace_files(self):
@@ -81,6 +84,20 @@ class TestDiff(unittest.TestCase):
         oldfn = old.functions['gate_tracer()']
         newfn = new.functions['gate_tracer()']
         self.assertTrue(fn_equal(oldfn, newfn))
+
+        # Some functions move from their own sections to the .text section:
+        oldfn = old.get_demangled_function(
+            'tracer_state::bb_seen_p(basic_block_def*)')
+        self.assertIn(oldfn, peers.old_to_new)
+        newfn = peers.old_to_new[oldfn]
+        self.assertEqual(
+            newfn.demangled,
+            '(anonymous namespace)::tracer_state::bb_seen_p(basic_block_def*)')
+        self.assertEqual(oldfn.section.name,
+                         '.text._ZN12tracer_state9bb_seen_pEP15basic_block_def')
+        self.assertEqual(oldfn.offset, 0x0)
+        self.assertEqual(newfn.section.name, '.text')
+        self.assertEqual(newfn.offset, 0x3b6)
 
     def test_trailing_nops(self):
         old, new = self.read_anon_namespace_files()

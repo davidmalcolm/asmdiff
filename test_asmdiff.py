@@ -99,6 +99,25 @@ class TestDiff(unittest.TestCase):
         self.assertEqual(newfn.section.name, '.text')
         self.assertEqual(newfn.offset, 0x3b6)
 
+        # Currently bb_seen_p is reported as having changed, purely due to
+        # the following 5-byte instruction:
+        #
+        #    FN+0x1f: Old: callq  THIS_FN+0x24
+        #           : New: callq  <bitmap_bit_p(simple_bitmap_def const*, int)>
+        #  Old: e8 00 00 00 00
+        #  New: e8 c8 fd ff ff
+        # In the old function, bitmap_bit_p is in a different section,
+        # whereas in the new they are both in the .text section.
+        # Presumably in the old object this call gets patched based on where
+        # the callee ends up
+        # Ultimately we need "objdump -r" to see the relocations
+        old_callq = oldfn.get_instr_at_relative_offset(0x1f)
+        new_callq = newfn.get_instr_at_relative_offset(0x1f)
+        self.assertEqual(old_callq.disasm,
+                         'callq  THIS_FN+0x24')
+        self.assertEqual(new_callq.disasm,
+                         'callq  <bitmap_bit_p(simple_bitmap_def const*, int)>')
+
     def test_trailing_nops(self):
         old, new = self.read_anon_namespace_files()
         FNNAME = 'loops_state_set(unsigned int)'

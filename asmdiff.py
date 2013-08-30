@@ -50,6 +50,7 @@ class Function:
         self.leafname = leafname
         self.instrs = []
         self.padding = []
+        self.size = 0
 
     def __repr__(self):
         return 'Function(%r)' % self.demangled
@@ -76,6 +77,9 @@ class Function:
         # Move padding instructions from self.instr to self.padding:
         self.padding = self.instrs[start_of_padding:]
         self.instrs = self.instrs[:start_of_padding]
+
+        self.size = sum(len(instr.bytes_)
+                        for instr in self.instrs)
 
     def get_instr_at_relative_offset(self, reloffset):
         offset = self.offset + reloffset
@@ -231,7 +235,7 @@ def fn_equal(old, new):
     return all(oldinstr.disasm == newinstr.disasm
                for oldinstr, newinstr in zip(old.instrs, new.instrs))
 
-def fn_diff(old, new, out):
+def fn_diff(old, new, out, just_sizes):
     def handle_minor_changes():
         if old.rawname != new.rawname:
             out.writeln('  (renamed to %s)' % new.demangled)
@@ -242,6 +246,14 @@ def fn_diff(old, new, out):
         elif old.offset != new.offset:
             out.writeln('  (moved offset within %s from %s to %s)'
                         % (old.section.name, old.offset, new.offset))
+
+    if just_sizes:
+        if old.size != new.size:
+            out.writeln('Function %s changed size from %s to %s bytes'
+                        % (old.demangled, old.size, new.size))
+            if old.rawname != new.rawname:
+                out.writeln('  (renamed to %s)' % new.demangled)
+        return
 
     if fn_equal(old, new):
         out.writeln('Unchanged function: %s' % old.demangled)
@@ -315,7 +327,7 @@ class FunctionMatchupSet(MatchupSet):
         if olditem.leafname in self.new.fn_by_leafnames:
             return self.new.fn_by_leafnames[olditem.leafname]
 
-def asm_diff(old, new, out):
+def asm_diff(old, new, out, just_sizes):
     out.writeln('Old: %s' % old.objpath)
     out.writeln('New: %s' % new.objpath)
     peers = FunctionMatchupSet(old, new)
@@ -325,7 +337,7 @@ def asm_diff(old, new, out):
         for appeared in peers.appeared:
             out.writeln('Function added: %s' % appeared)
         for oldfn, newfn in peers.old_to_new.iteritems():
-            fn_diff(oldfn, newfn, out)
+            fn_diff(oldfn, newfn, out, just_sizes)
 
 class Output:
     def __init__(self, fileobj):
@@ -355,4 +367,4 @@ def read_objdump(path):
 if __name__ == '__main__':
     old = read_objdump(sys.argv[1])
     new = read_objdump(sys.argv[2])
-    asm_diff(old, new, Output(sys.stdout))
+    asm_diff(old, new, Output(sys.stdout), just_sizes=False)

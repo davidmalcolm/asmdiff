@@ -69,12 +69,12 @@ class TestDiff(unittest.TestCase):
         new = read_objdump('examples/objdump/anon-namespace/tracer.new')
         return old, new
 
-    def get_diff(self, old, new):
+    def get_diff(self, old, new, just_sizes=False):
         """
         Run the diff tool, getting the output as a str
         """
         strio = StringIO.StringIO()
-        asm_diff(old, new, Output(strio))
+        asm_diff(old, new, Output(strio), just_sizes)
         return strio.getvalue()
 
     def test_adding_anon_namespace(self):
@@ -181,6 +181,14 @@ class TestDiff(unittest.TestCase):
                        '  Changed function: tail_duplicate()\n'
                        '    (renamed to tracer_state::tail_duplicate())\n'),
                       out)
+
+    def test_size_diff(self):
+        old = read_objdump('examples/objdump/add-classes/tracer.old')
+        new = read_objdump('examples/objdump/add-classes/tracer.new')
+        out = self.get_diff(old, new, just_sizes=True)
+        self.assertEqual(out,
+                         ('Old: examples/objdump/add-classes/tracer.old\n'
+                          'New: examples/objdump/add-classes/tracer.new\n'))
 
 class TestDemangler(unittest.TestCase):
     def test_demangling(self):

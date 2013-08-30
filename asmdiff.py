@@ -143,9 +143,9 @@ class ObjDump(AsmFile):
 
         return disasm
 
-    def __init__(self, f, debug=0):
+    def __init__(self, f, debug_level=0):
         AsmFile.__init__(self)
-        self.debug = debug
+        self.debug_level = debug_level
 
         self.objpath = None
         self.fileformat = None
@@ -154,7 +154,7 @@ class ObjDump(AsmFile):
         self.rootns = Scope('::')
 
         for line in f:
-            if debug:
+            if self.debug_level >= 3:
                 print(repr(line))
 
             # Ignore blank lines:
@@ -196,13 +196,13 @@ class ObjDump(AsmFile):
             raise ValueError('Unhandled line: %r' % line)
 
     def _on_section(self, name):
-        if self.debug:
+        if self.debug_level >= 1:
             print('SECTION: %s' % name)
         self._cur_section = Section(name)
         self.sections[name] = self._cur_section
 
     def _on_function(self, offset, name):
-        if self.debug:
+        if self.debug_level >= 1:
             print('FUNCTION:0x%x %s' % (offset, name))
         if self._cur_function:
             self._cur_function.finish()
@@ -218,7 +218,7 @@ class ObjDump(AsmFile):
         curscope[scopes[-1]] = self._cur_function
 
     def _on_instruction(self, offset, hexdump, disasm):
-        if self.debug:
+        if self.debug_level >= 2:
             print('INSTRUCTION:0x%x %r %r' % (offset, hexdump, disasm))
         disasm = self.fixup_disasm(disasm, self._cur_function.rawname,
                                    self._demangler)

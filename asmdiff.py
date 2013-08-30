@@ -322,8 +322,14 @@ class FunctionMatchupSet(MatchupSet):
                             FunctionPeer(new))
 
     def _lookup(self, olditem):
-        if olditem.rawname in self.new.asmfile.functions:
-            return self.new.asmfile.functions[olditem.rawname]
+        rawname = olditem.rawname
+        # Special case:
+        # support "gimple_statement_d" becoming "gimple_statement_base"
+        # (for http://gcc.gnu.org/ml/gcc-patches/2013-08/msg01788.html)
+        rawname = rawname.replace('18gimple_statement_d',
+                                  '21gimple_statement_base')
+        if rawname in self.new.asmfile.functions:
+            return self.new.asmfile.functions[rawname]
         if olditem.leafname in self.new.fn_by_leafnames:
             return self.new.fn_by_leafnames[olditem.leafname]
 

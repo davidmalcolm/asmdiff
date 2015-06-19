@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Script for comparing output of "objdump -d"
 """

@@ -3,7 +3,8 @@ asmdiff
 This is a tool for comparing the output of "objdump" for a before/after
 pair of .o files.
 
-It attempts to be more useful than "diff" in the following ways:
+It attempts to be more useful than a purely textual "diff" in the
+following ways:
 
   * It ignores reorderings of functions, instead matching them by name.
 

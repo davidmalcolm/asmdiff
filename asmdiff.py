@@ -28,6 +28,10 @@ class Demangler:
     def __init__(self):
         self.p = Popen(['c++filt'], stdin=PIPE, stdout=PIPE, text=True)
 
+    def __del__(self):
+        self.p.terminate()
+        outs, errs = self.p.communicate()
+
     def demangle(self, name):
         self.p.stdin.write('%s\n' % name)
         self.p.stdin.flush()

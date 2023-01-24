@@ -1,4 +1,4 @@
-import StringIO
+import io
 import unittest
 
 from asmdiff import read_objdump, FunctionMatchupSet, fn_equal, \
@@ -73,7 +73,7 @@ class TestDiff(unittest.TestCase):
         """
         Run the diff tool, getting the output as a str
         """
-        strio = StringIO.StringIO()
+        strio = io.StringIO()
         asm_diff(old, new, Output(strio), just_sizes)
         return strio.getvalue()
 

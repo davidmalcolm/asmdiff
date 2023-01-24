@@ -26,10 +26,11 @@ import sys
 
 class Demangler:
     def __init__(self):
-        self.p = Popen(['c++filt'], stdin=PIPE, stdout=PIPE)
+        self.p = Popen(['c++filt'], stdin=PIPE, stdout=PIPE, text=True)
 
     def demangle(self, name):
         self.p.stdin.write('%s\n' % name)
+        self.p.stdin.flush()
         return self.p.stdout.readline().rstrip()
 
 class Instruction:
@@ -306,14 +307,14 @@ class MatchupSet:
         self.new_to_old = {}
         self.gone = []
         self.appeared = []
-        for olditem in old.iteritems():
+        for olditem in old.items():
             newitem = self._lookup(olditem)
             if newitem:
                 self.old_to_new[olditem] = newitem
                 self.new_to_old[newitem] = olditem
             else:
                 self.gone.append(olditem)
-        for newitem in new.iteritems():
+        for newitem in new.items():
             if newitem not in self.new_to_old:
                 self.appeared.append(newitem)
 
@@ -327,7 +328,7 @@ class FunctionPeer(Peer):
         for function in asmfile.functions.values():
             self.fn_by_leafnames[function.leafname] = function
 
-    def iteritems(self):
+    def items(self):
         return self.asmfile.functions.values()
 
 class FunctionMatchupSet(MatchupSet):
@@ -360,7 +361,7 @@ def asm_diff(old, new, out, just_sizes):
             out.writeln('Function removed: %s' % gone)
         for appeared in peers.appeared:
             out.writeln('Function added: %s' % appeared)
-        for oldfn, newfn in peers.old_to_new.iteritems():
+        for oldfn, newfn in peers.old_to_new.items():
             fn_diff(oldfn, newfn, out, just_sizes)
 
 class Output:
